@@ -2,7 +2,7 @@
   "name": "rstack",
   "displayName": "rstack",
   "version": "2.6.0",
-  "description": "rstack is my personal stack: the rules I want every agent to follow when it writes, designs, reviews, and ships code with me. It includes an rstack-mode router with playbooks, code guidelines, frontend design, code review, app architecture, backend, agent files, issue management, agent orchestration, and council.",
+  "description": "rstack is my personal stack: the rules I want every agent to follow when it writes, designs, reviews, and ships code with me. It includes an rstack-mode router with playbooks, code guidelines, frontend design, code review, app architecture, backend, agent files, issue management, agent orchestration, council, and rstack-help and setup-rstack for onboarding.",
   "author": {
     "name": "Rigo Alvarenga",
     "url": "https://r1go.dev"
@@ -23,7 +23,9 @@
     "issue-management",
     "agent-orchestration",
     "council",
-    "rstack-mode"
+    "rstack-mode",
+    "rstack-help",
+    "setup-rstack"
   ],
   "skills": "./skills/"
 }

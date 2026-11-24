@@ -1,0 +1,4 @@
+interface:
+  display_name: "rstack Help"
+  short_description: "Learn what rstack is, which skill does what, and where to start"
+  default_prompt: "Use $rstack-help to explain how to use rstack and which skill or playbook fits this ask."

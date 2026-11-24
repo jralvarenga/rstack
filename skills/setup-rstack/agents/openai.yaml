@@ -1,0 +1,4 @@
+interface:
+  display_name: "Setup rstack"
+  short_description: "Write the rstack section and model routing into a project's AGENTS.md"
+  default_prompt: "Use $setup-rstack to set up rstack in this project according to my conventions."
