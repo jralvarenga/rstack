@@ -9,10 +9,12 @@ Act on the request. I usually give a one-line ask and expect a filed issue back,
 
 ## Where issues go
 
-- Product work goes to the tracker the product team uses, for example Linear. Pick the team and the project by the area of the work, like frontend, backend, or database, and add a milestone only when one already fits.
-- Work tied to a single repository goes to that repository's issues, for example GitHub Issues.
+Any kind of work, product, code, design, or ops, goes to the tracker the project uses. Linear, GitHub Issues, Jira, or any other tracker follow the same rules.
+
+- Find the tracker in this order: the tracker I name, the routing the project or organization documents, like in `AGENTS.md`, then the tracker the repository already uses, like an issue key in branch names, PRs, and commits, or open issues on its GitHub repository.
+- When the tracker splits work into teams, projects, or milestones, pick them by the area of the work, like frontend, backend, database, or design. Add a milestone only when one already fits.
+- When the work has no project context and I name no tracker, use the issues of the repository it touches. Ask me only when none of these settle it.
 - When I mention a platform or a package, like "on iOS", scope the issue to it only.
-- Follow the routing the project or organization already documents when it exists.
 
 Use the connected integration for the tracker to create and update issues. Never use the browser to file issues, and never say an issue was created or updated without a successful tool response.
 
