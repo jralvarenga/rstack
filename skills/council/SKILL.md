@@ -1,6 +1,6 @@
 ---
 name: council
-description: Rules on how the agent runs a council, a review by three delegates from different providers at high reasoning effort. Use when I say "council" or ask for a multi-provider review or second opinions on a plan, change, or PR. Keep feedback read-only and drive fixes to completion when I authorize them.
+description: Rules on how the agent runs a council, review or feedback rounds by three delegates from different providers at high reasoning effort. Use when I say "council", or ask for a multi-provider review, feedback round, or second opinions on a plan, design, change, or PR. Keep feedback read-only and drive fixes to completion when I authorize them.
 ---
 
 These are my rules on how to run a council. Three strong models from different providers review the same work and disagree in the open. Use organization and project rules as the base and apply these rules as long as they do not conflict with them.
