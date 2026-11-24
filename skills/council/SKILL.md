@@ -9,18 +9,25 @@ When I say "council", run this flow on the work in front of us, a PR, a branch, 
 
 ## Before calling the council
 
-The council reviews finished work, not work you already know is broken. Before the first round:
+The council reviews finished work, not work you already know is broken. Before the first round, fix the issues you already know about.
+
+For a PR or branch, also:
 
 - Address every open comment on the PR, fix it or reply with why not.
-- Fix the issues you already know about, including failing CI.
+- Fix failing CI.
 - Run the project's checks, like the formatter, linter, type checker, tests, and build, and make them pass.
 - Commit and push, so every member reviews the same head commit.
+
+For a plan or design, there are no checks, commit, or push. Instead:
+
+- Write the current version to a file and give every member its path, so every member reviews the same version.
+- Don't edit it while a round runs.
 
 If something can't be fixed first, say what it is and put it in every brief, so members don't spend the round reporting it.
 
 ## Members
 
-- When I name the members, use exactly those.
+- When I name the members, use exactly those, as long as they are three members from three different providers. When they aren't, tell me what's wrong with the panel and wait for a valid one.
 - Otherwise use the members from the "Council" row of the routing table in [agent-orchestration](../agent-orchestration/SKILL.md#routing-table). Don't pick models yourself and don't keep your own list.
 - A council has three members, one per provider, each at high reasoning effort. Two members from the same provider is not a council.
 - You are the chair, not a member. You brief, collect, summarize, and fix, but your opinion never counts as a member's.
@@ -62,7 +69,7 @@ After each round, tell me:
 
 ## Rounds
 
-- Apply the fixes the council agrees on, and the ones a single member raised when they are real bugs. Run the checks again, then commit and push.
+- Apply the fixes the council agrees on, and the ones a single member raised when they are real bugs. For a PR or branch, run the checks again, then commit and push. For a plan or design, update the file.
 - Run a fresh round with the same members, and say in the brief what changed. Don't continue the earlier round's conversation, each round starts clean.
 - Keep going until every member is satisfied.
 - Keep the scope of the original work. A finding that asks for new features, unrelated refactors, or work outside the issue goes to next steps as a follow-up, not into this change. When a member keeps blocking on something out of scope or that I already decided, stop and ask me instead of running another round.
