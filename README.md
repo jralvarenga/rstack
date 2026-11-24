@@ -16,8 +16,21 @@ It is written for the stack I use most: TypeScript, React, Next.js and TanStack 
 | `code-review` | Reviews a pull request against project rules and my code guidelines. |
 | `agent-file` | Creates and updates `AGENTS.md`, `CLAUDE.md`, and `DESIGN.md` from the codebase. |
 | `issue-management` | Creates and manages issues in Linear, GitHub, or any other tracker. |
+| `agent-orchestration` | Loads at the start of every task: decides what to do yourself or delegate, picks the model and provider for each part, and briefs the delegates. See [Every task](#every-task). |
 
 Every skill lives in `skills/`. Don't copy them by hand; install rstack with one of the options below.
+
+## Every task
+
+`agent-orchestration` is meant to run at the start of every task. How it gets loaded depends on how you install rstack:
+
+- **Claude Code plugin:** a `UserPromptSubmit` hook in `hooks/hooks.json` reminds the agent on every prompt.
+- **Cursor plugin:** the always-on rule in `rules/agent-orchestration.mdc`.
+- **Codex, skills.sh, and local links:** the skill is available, but the agent loads it only when the task matches its description. To make it always on, add this line to your global or project `AGENTS.md`, or run `setup-rstack` in the project:
+
+  ```md
+  Load the agent-orchestration skill at the start of every task, before planning or writing anything.
+  ```
 
 ## Install
 

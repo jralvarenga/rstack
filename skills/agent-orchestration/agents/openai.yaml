@@ -1,0 +1,4 @@
+interface:
+  display_name: "Agent Orchestration"
+  short_description: "Route work to the right model and provider and brief delegates"
+  default_prompt: "Use $agent-orchestration to decide how to split this task, whether to delegate each part, and which model handles it."

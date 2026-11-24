@@ -1,0 +1,6 @@
+---
+description: Run every task through rstack's agent-orchestration skill
+alwaysApply: true
+---
+
+At the start of every task, before you plan or write anything, load the `agent-orchestration` skill. Use it to decide whether to do each part of the task yourself or delegate it, and which model handles it. When you are a delegate, follow your brief instead.
