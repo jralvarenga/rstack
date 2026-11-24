@@ -1,0 +1,4 @@
+interface:
+  display_name: "Testing"
+  short_description: "Write, place, run, and report tests by my rules"
+  default_prompt: "Use $testing to write and run the tests for this change according to my conventions."

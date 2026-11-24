@@ -3,9 +3,11 @@ name: council
 description: Rules on how the agent runs a council, review or feedback rounds by three delegates from different providers at high reasoning effort. Use when I say "council", or ask for a multi-provider review, feedback round, or second opinions on a plan, design, change, or PR. Keep feedback read-only and drive fixes to completion when I authorize them.
 ---
 
-These are my rules on how to run a council. Three strong models from different providers review the same work and disagree in the open. Use organization and project rules as the base and apply these rules as long as they do not conflict with them.
+These are my rules on how to run a council. Three strong models from different providers (or the same depending on the available stack) review the same work and disagree in the open. Use organization and project rules as the base and apply these rules as long as they do not conflict with them.
 
 When I say "council", run this flow on the work in front of us, a PR, a branch, a plan, or a design. Pick the model, brief, and tools for every member following [agent-orchestration](../agent-orchestration/SKILL.md).
+
+The council only work when the user ask for it, never automatically
 
 ## When to make changes
 
@@ -21,7 +23,7 @@ For a PR or branch, also:
 
 - Address every open comment on the PR, fix it or reply with why not.
 - Fix failing CI.
-- Run the project's checks, like the formatter, linter, type checker, tests, and build, and make them pass.
+- Run the project's checks, like the formatter, linter, type checker, tests, and build, and make them pass. Add or fix tests following [testing](../testing/SKILL.md).
 - Commit and push, so every member reviews the same head commit.
 
 For a plan or design, there are no checks, commit, or push. Instead:
@@ -72,6 +74,7 @@ After each round, tell me:
 - **Disagreements:** where members contradict each other, what each said, and what you recommend.
 - **Next steps** cover what you recommend fixing or declining, why, and what needs my decision.
 - **Scores:** each member's score for the round.
+- **Prompt for AI agents:** for a code review with findings, the copy-ready prompt from [code-review](../code-review/SKILL.md#prompt-for-ai-agents) covering every finding you recommend fixing.
 
 ## Rounds
 

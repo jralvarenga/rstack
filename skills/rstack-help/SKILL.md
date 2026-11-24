@@ -14,7 +14,7 @@ rstack is my personal stack: a collection of agent skills with the rules I want 
 1. Install it. The Install section of the [README](https://github.com/jralvarenga/skills#install) has the command for each agent. In Claude Code the skills are then available as `/rstack:<skill>`.
 2. Start every task from [rstack-mode](../rstack-mode/SKILL.md). It holds the core rules, picks the skills each task needs, and has playbooks for the workflows I repeat.
 3. Run [setup-rstack](../setup-rstack/SKILL.md) once in each project, and again after the routing table in [agent-orchestration](../agent-orchestration/SKILL.md) changes. It adds an rstack section to the project's `AGENTS.md` with the model routing for that project.
-4. Say "council" when you want a review from several models at once.
+4. Say "council" when you want a review from several models at once. The agent runs a council only when you ask, and never starts or offers one on its own.
 
 ## Skills
 
@@ -24,12 +24,13 @@ rstack is my personal stack: a collection of agent skills with the rules I want 
 | rstack-help | This guide. |
 | setup-rstack | Writes the rstack section, with the model routing, into a project's `AGENTS.md`. |
 | code-guidelines | How code is written and formatted. Always on for coding tasks. |
+| testing | When and how tests are written, placed, run, and reported. On for every behavior change and bug fix. |
 | design | How the frontend looks. |
 | frontend | How the frontend app, components, pages, and features are planned. |
 | backend | How APIs, databases, validation, and infrastructure are planned. |
 | app-architecture | How apps are structured, set up, and deployed, including repos, environments, and auth. |
 | code-review | Reviews a pull request, branch, or diff. |
-| council | Reviews with several models from different providers at once. |
+| council | Reviews with several models from different providers at once, only when you ask for a council. |
 | agent-file | Writes and refreshes `AGENTS.md`, `CLAUDE.md`, and `DESIGN.md`. |
 | issue-management | Creates and manages issues in Linear, GitHub, or another tracker. |
 | agent-orchestration | Picks the model for each kind of work and briefs delegates. Holds the routing table. |
@@ -48,6 +49,7 @@ When a skill in this list isn't installed, say so instead of describing it as av
 | "council" | council |
 | "Start a new app" or "plan a big feature" | The [new-app-or-feature](../rstack-mode/playbooks/new-app-or-feature.md) playbook |
 | "Do these in parallel" | The [parallel-work](../rstack-mode/playbooks/parallel-work.md) playbook |
+| "Add tests for this" or "set up tests" | testing |
 | "Write the AGENTS.md" | agent-file |
 | "Which model should do this?" | agent-orchestration |
 | "Set up rstack in this repo" | setup-rstack |

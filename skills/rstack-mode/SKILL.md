@@ -12,8 +12,10 @@ These apply to every task, whatever skills it loads:
 - Read the project's `AGENTS.md`, `CLAUDE.md`, and `DESIGN.md` before starting, the ones that exist. Project and organization rules come first; rstack fills in everything they don't cover. When the agent files are missing and the task needs them, load [agent-file](../agent-file/SKILL.md) first.
 - Load [agent-orchestration](../agent-orchestration/SKILL.md) at the start of every task, before planning, to decide what you do yourself and what you delegate.
 - Load [code-guidelines](../code-guidelines/SKILL.md) for every task that writes or changes code, in any language.
+- Load [testing](../testing/SKILL.md) for every task that adds or changes behavior, fixes a bug, or touches tests.
 - Load [design](../design/SKILL.md) for any work that changes how something looks.
 - Load every skill the task needs before you start, not halfway through. A task often needs more than one.
+- Load [council](../council/SKILL.md) only when I ask for a council. Never start one or offer one on your own.
 - Act on the request. Ask only when the answer would change the result, and then ask one focused question.
 - Never commit to `main`. When the task edits or commits files, work on the existing PR branch, or on a new branch named after the issue, or after the task when there is no issue, as described in [app-architecture](../app-architecture/SKILL.md#branching). Read-only tasks, like filing issues or reviewing, need no branch.
 - Never invent requirements, product behavior, labels, or results. Check the diff, the tests, or the tool response before saying something is done, and say what you couldn't verify.
@@ -26,8 +28,8 @@ Each line is a moment in the task and what it requires. They fire on top of the 
 - **First message** → restate my goal and the smallest change that meets it in one or two lines, then proceed. Open every delegate brief, PR description, and final report with that goal.
 - **A choice you could settle by running something** → try it on your branch, a script, or a quick prototype, and show me the result instead of asking which way to go.
 - **Before writing logic** → name the data shape first: the schema, the model, or the state and who owns it. See the [principles](#principles).
-- **A design with real disagreement, or a change I'll have to live with** → offer a [council](../council/SKILL.md) in one line. Run it only when I say so.
-- **Before every commit** → run the project's formatter and checks, following [code-guidelines](../code-guidelines/SKILL.md#formatter), and the tests for what changed.
+- **Changing behavior or fixing a bug** → write or update the test first or alongside it, following [testing](../testing/SKILL.md#when-to-test). For a bug, the test fails before the fix.
+- **Before every commit** → run the project's formatter and checks, following [code-guidelines](../code-guidelines/SKILL.md#formatter), and the tests for what changed, following [testing](../testing/SKILL.md#running-tests).
 - **Before opening or handing over a PR** → follow the project's release process, like a changeset, then review your own diff with [code-review](../code-review/SKILL.md) and fix every P0 and P1.
 - **A change that makes the agent files stale** → update them with [agent-file](../agent-file/SKILL.md) in the same PR.
 - **The work has an issue** → keep it in sync following [issue-management](../issue-management/SKILL.md), and move it to In Review when its PR opens.
@@ -47,13 +49,14 @@ My skills encode these principles. Read the linked section before you apply one.
 | Earn every abstraction | Tempted to add a queue, a cache, a layer, a shared component variant, or a dependency. Add it only for a concrete requirement. Prefer the smallest change and delete before you add. | [backend](../backend/SKILL.md#architecture-and-planning), [frontend](../frontend/SKILL.md#architecture-and-planning), [design](../design/SKILL.md#components) |
 | Derive, don't duplicate | Designing state. Keep it close to where it's used, put navigation in the URL, and derive values instead of storing them twice. | [frontend](../frontend/SKILL.md#architecture-and-planning) |
 | Every state is designed | Any UI or flow. Plan loading, empty, error, success, retry, and permission states with the main path. | [frontend](../frontend/SKILL.md#architecture-and-planning), [design](../design/SKILL.md#components) |
-| Ship in verifiable slices | Multi-step work. Each slice brings its schema, logic, and tests, and ends in a check that passes before the next one starts. | [backend](../backend/SKILL.md#architecture-and-planning) |
+| Ship in verifiable slices | Multi-step work. Each slice brings its schema, logic, and tests, and ends in a check that passes before the next one starts. | [backend](../backend/SKILL.md#architecture-and-planning), [testing](../testing/SKILL.md#when-to-test) |
+| Test behavior, not implementation | Writing or reviewing a test. Assert what a user or caller observes, fake only the boundaries you don't own, and never weaken a failing test to get green. | [testing](../testing/SKILL.md#what-to-test) |
 | A specific direction | Any visual work. Pick one signature element, keep the rest restrained, and replace anything that would look the same in an unrelated product. | [design](../design/SKILL.md#design-direction), [design](../design/SKILL.md#design-process) |
 | Follow what the project decided | An existing project made a different choice than my defaults. Follow it and mention the difference instead of migrating. | [app-architecture](../app-architecture/SKILL.md) |
 | Right model for the work | Any task with a phase that belongs to another row of the routing table. | [agent-orchestration](../agent-orchestration/SKILL.md#routing-table) |
 | A report is a claim | Before saying something is done. Check the diff, the tests, the PR, or the tool response, yours or a delegate's. | [agent-orchestration](../agent-orchestration/SKILL.md#parallel-and-sequential) |
 | Keep my intent literally | Writing an issue, a brief, or a plan from what I said. Use my words and don't re-open decisions I made. | [issue-management](../issue-management/SKILL.md), [agent-orchestration](../agent-orchestration/SKILL.md#briefing-a-delegate) |
-| Blind spots that don't overlap | A review or decision that matters enough for more than one opinion. Use models from different providers. | [council](../council/SKILL.md#members) |
+| Blind spots that don't overlap | I ask for a council. | [council](../council/SKILL.md#members) |
 
 ## Autonomy
 
@@ -80,12 +83,13 @@ My skills encode these principles. Read the linked section before you apply one.
 | [backend](../backend/SKILL.md) | Designing or changing an API, a database schema or query, a server, a background job, or a service's Docker setup. |
 | [code-guidelines](../code-guidelines/SKILL.md) | Writing or formatting any code. Always on for coding tasks. |
 | [code-review](../code-review/SKILL.md) | Reviewing a pull request, branch, or diff. |
-| [council](../council/SKILL.md) | I say "council" or ask for the default multi-provider review panel. |
+| [council](../council/SKILL.md) | I ask for a council. Never on your own. |
 | [design](../design/SKILL.md) | Designing components, pages, or features, or any change to how the frontend looks. |
 | [frontend](../frontend/SKILL.md) | Planning the frontend app, its components, pages, routing, data fetching, and state. |
 | [issue-management](../issue-management/SKILL.md) | Creating, refining, renaming, splitting, assigning, handing off, commenting on, or triaging issues. |
 | [rstack-help](../rstack-help/SKILL.md) | I ask what rstack is, which skill does what, or how to use it. |
 | [setup-rstack](../setup-rstack/SKILL.md) | Installing or configuring rstack for me or for a project. |
+| [testing](../testing/SKILL.md) | Any change to behavior, a bug fix, or writing, running, setting up, or reviewing tests. |
 
 If a skill in this table isn't installed, say so and continue with the skills that are. Don't improvise the missing skill's flow.
 
@@ -96,13 +100,14 @@ Match the ask to every row that fits and load all of the skills in them:
 | The ask | Load |
 | --- | --- |
 | Any code change | code-guidelines, plus the area skills below |
+| New or changed behavior, a bug fix, or writing, running, or setting up tests | testing |
 | UI, components, pages, styling | frontend and design |
 | APIs, databases, servers, jobs, Docker | backend |
 | A new app, package, or service, CI/CD, deployments, environments, auth | app-architecture |
 | Agent files are missing, asked for, or out of date | agent-file |
 | Filing or updating issues | issue-management |
 | Reviewing a PR, branch, or diff | code-review |
-| "council", or a multi-provider panel without named reviewers | council |
+| I ask for a council | council |
 | Named reviewers outside a council | agent-orchestration |
 | Every task, and any delegating, subagents, parallel work, or model choice | agent-orchestration |
 | How rstack works | rstack-help |
@@ -110,6 +115,7 @@ Match the ask to every row that fits and load all of the skills in them:
 
 - Model and provider choices always come from [agent-orchestration](../agent-orchestration/SKILL.md). Don't pick a model from memory or keep a second list here.
 - Use the reviewers I name through agent-orchestration unless I ask for a council.
+- Load council only when I ask for a council. Never start or offer one on your own.
 - When an ask spans several rows, like "build the settings page and its API", load the skills of every row before you plan.
 - When the ask matches a playbook below, follow the playbook. It says which skill to load at each step.
 
