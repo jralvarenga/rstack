@@ -32,7 +32,7 @@
     "displayName": "rstack",
     "shortDescription": "Rigo's personal stack: an rstack-mode router with playbooks, code guidelines, frontend design, code review, app architecture, backend, agent files, issue management, agent orchestration, council, and rstack-help and setup-rstack for onboarding",
     "category": "Coding",
-    "logo": "./assets/logo.svg",
-    "composerIcon": "./assets/logo.svg"
+    "logo": "./assets/logo.png",
+    "composerIcon": "./assets/logo.png"
   }
 }

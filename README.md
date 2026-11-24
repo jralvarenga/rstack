@@ -175,7 +175,7 @@ bun run release
 3. Sign in to Cursor and submit `https://github.com/jralvarenga/skills` at the [Cursor Marketplace publishing form](https://cursor.com/marketplace/publish). Cursor reviews the repository before listing it. [Cursor's submission checklist](https://cursor.com/docs/reference/plugins#submission-checklist)
 4. After approval, confirm the listing in Cursor Marketplace and check availability in Grok Bot. In the official catalog, `pstack` lives in its own directory and has an entry in the top-level marketplace manifest with `name`, `source`, and `description`. If Cursor adds rstack to that catalog, the corresponding entry would use `rstack` as the name and point `source` to the directory Cursor assigns it. [pstack package](https://github.com/cursor/plugins/tree/main/pstack) · [Official catalog manifest](https://github.com/cursor/plugins/blob/main/.cursor-plugin/marketplace.json)
 
-The submission is the public repository URL. It contains the Cursor manifest and its local marketplace entry, the portable `plugin.json`, the Claude and Codex manifests, the bundled `skills/`, the SVG logo and its PNG variant, the MIT `LICENSE`, and this README. Once [#49](https://github.com/jralvarenga/skills/issues/49) adds `agents/`, register it as `"agents": "./agents/"` in `.cursor-plugin/plugin.json`.
+The submission is the public repository URL. It contains the Cursor manifest and its local marketplace entry, the portable `plugin.json`, the Claude and Codex manifests, the bundled `skills/`, the PNG logo, the MIT `LICENSE`, and this README. Once [#49](https://github.com/jralvarenga/skills/issues/49) adds `agents/`, register it as `"agents": "./agents/"` in `.cursor-plugin/plugin.json`.
 
 ## GitHub setup
 

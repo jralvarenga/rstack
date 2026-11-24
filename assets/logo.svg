@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
-  <title id="title">rstack</title>
-  <rect width="64" height="64" rx="14" fill="rgb(22, 27, 43)" />
-  <path fill="rgb(255, 246, 224)" d="M16 39V15h10v6c4-6 12-9 21-6v10c-10-4-20 0-20 9v5Z" />
-  <path fill="rgb(251, 175, 84)" d="M16 43h31v5H16zM16 52h22v4H16z" />
-</svg>
