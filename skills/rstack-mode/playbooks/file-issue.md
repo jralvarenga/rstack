@@ -9,8 +9,8 @@ Use when I ask to file, refine, rename, split, assign, hand off, or triage an is
 3. Search it for an issue that already covers the work. Update that one instead of opening a duplicate.
 4. Read the code or context the issue is about, when it's available, before writing the body.
 5. Write the title and body following issue-management. Keep my intent literally and put open questions in the body.
-6. When I listed several things, split them into one issue each and link the related ones.
-7. Create or update the issues with the defaults, then confirm the fields from the tool response.
+6. When I listed several things, split them into one issue per independently deliverable piece and link the related ones. When the work has a clear parent, create the parent and add the rest as sub-issues.
+7. Create new issues with the defaults. On an existing issue, change only what I asked and keep the rest. Then confirm the fields from the tool response.
 
 ## Done when
 

@@ -9,7 +9,7 @@ These are my rules on how an agent works with rstack. This skill doesn't replace
 
 These apply to every task, whatever skills it loads:
 
-- Read the project's `AGENTS.md`, `CLAUDE.md`, and `DESIGN.md` before starting. Project and organization rules come first, rstack fills in everything they don't cover.
+- Read the project's `AGENTS.md` and `CLAUDE.md` before starting, and its `DESIGN.md` when it has one. Project and organization rules come first, rstack fills in everything they don't cover.
 - Load [code-guidelines](../code-guidelines/SKILL.md) for every task that writes or changes code, in any language.
 - Load [design](../design/SKILL.md) for any work that changes how something looks.
 - Load every skill the task needs before you start, not halfway through. A task often needs more than one.
