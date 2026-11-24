@@ -27,7 +27,11 @@ If something can't be fixed first, say what it is and put it in every brief, so 
 
 ## Missing members
 
-Before the first round, check that the harness can reach every member. If a provider or a named member isn't available, tell me which one is missing, then wait for my answer. Never substitute another model, never run with fewer members without my OK, and never report a council that didn't happen.
+Before the first round, check that the harness can reach every member.
+
+- When a default member isn't available, use the council fallback from the routing table in [agent-orchestration](../agent-orchestration/SKILL.md#routing-table), and tell me which member it replaced. The council still needs three different providers.
+- When more members are missing than the fallback covers, or a member I named isn't available, tell me which ones are missing, then wait for my answer.
+- Never pick a replacement outside the routing table, never run with fewer members without my OK, and never report a council that didn't happen.
 
 ## Briefing the council
 
