@@ -1,7 +1,8 @@
 ---
-name: agent-orchestration
+
+## name: agent-orchestration
+
 description: Rules on how the agent handles every task I give it, deciding whether to do the work itself or delegate it, which model and provider handles each kind of work, how to brief a delegate, and how to run delegates in parallel or in isolation. Use at the start of every task, before planning or writing anything, and whenever orchestrating subagents or picking a model.
----
 
 These are my rules on how an orchestrating agent splits work between itself and its delegates. The goal is that every kind of work goes to the model that does it best, each delegate gets a brief it can act on without asking, and when a model is unavailable the work moves to a known fallback instead of an improvised one. Use organization and project rules as the base and apply these rules as long as they do not conflict with them.
 
@@ -20,15 +21,17 @@ When you are a delegate, the brief already made this decision. Do the work yours
 
 This table is the single source of truth for which model handles which work. Other skills, like council and setup-rstack, point here instead of naming models themselves. When models change, update this table only.
 
-| Task type | Model | Provider | Fallback | Reasoning effort |
-| --- | --- | --- | --- | --- |
-| Planning and architecture | Claude Opus 5.5 | Anthropic | GPT-6.2 Sol (OpenAI) | High |
-| Code review | Claude Opus 5.5 | Anthropic | GPT-6.2 Sol (OpenAI) | High |
-| UI and design | Claude Opus 5.5 | Anthropic | Gemini 4 Neon (Google) | High |
-| Implementation | GPT-6.2 Sol | OpenAI, via Codex | Claude Opus 5.5 (Anthropic) | High |
-| Research and fast exploration | Grok 4.7 | xAI | Gemini 4 Neon (Google) | High |
-| Quick low-effort tasks | Claude Sonnet 5.5 or Claude Haiku 5.5 | Anthropic | Grok 4.7 Fast (xAI) | Low or medium |
-| Council | Claude Opus 5.5, GPT-6.2 Sol, and Grok 4.7, one delegate each | Anthropic, OpenAI, and xAI | Gemini 4 Neon (Google) replaces one missing member | High |
+The ideal stack to have in the machine is Claude Code, Codex and Cursor/Grok, base on what's installed in the machine use the model require that match the desire model
+
+| Task type                     | Model                                                         | Provider                   | Fallback                                           | Reasoning effort |
+| ----------------------------- | ------------------------------------------------------------- | -------------------------- | -------------------------------------------------- | ---------------- |
+| Planning and architecture     | Claude Opus 5.5                                               | Anthropic                  | GPT-6.2 Sol                                        | High             |
+| Code review                   | Claude Opus 5.5                                               | Anthropic                  | GPT-6.2 Sol                                        | High             |
+| UI and design                 | Claude Opus 5.5                                               | Anthropic                  | Claude Opus 5.5                                    | Medium           |
+| Implementation                | GPT-6.2 Sol                                                   | OpenAI, via Codex          | Claude Opus 5.5                                    | Medium           |
+| Research and fast exploration | GPT-6.1 Sol                                                   | OpenAI, via Codex          | Grok 4.7                                           | High             |
+| Quick low-effort tasks        | Claude Sonnet 5.5 or Claude Haiku 5.5                         | Anthropic                  | Grok 4.7 Fast (xAI)                                | Low or medium    |
+| Council                       | Claude Opus 5.5, GPT-6.2 Sol, and Grok 4.7, one delegate each | Anthropic, OpenAI, and xAI | Gemini 4 Neon (Google) replaces one missing member | Medium           |
 
 - Pick the row for each phase by its main kind of work, not by the files it touches. A plan that ends in a small edit is one planning phase; a refactor across many files is implementation.
 - Quick low-effort tasks are mechanical and well-specified, for example renaming, reformatting, collecting file lists, or summarizing a log. Use Haiku for the smallest ones and Sonnet when the task needs some judgment.

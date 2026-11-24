@@ -20,7 +20,7 @@ rstack is my personal stack: a collection of agent skills with the rules I want 
 
 | Skill | What it does |
 | --- | --- |
-| rstack-mode | The entry point. Core rules, routing from the ask to the skills, and the playbooks. |
+| rstack-mode | The entry point. Core rules, triggers, principles, autonomy, routing from the ask to the skills, and the playbooks. |
 | rstack-help | This guide. |
 | setup-rstack | Writes the rstack section, with the model routing, into a project's `AGENTS.md`. |
 | code-guidelines | How code is written and formatted. Always on for coding tasks. |
@@ -42,6 +42,8 @@ When a skill in this list isn't installed, say so instead of describing it as av
 | --- | --- |
 | "Implement issue #12" | The [implement-issue](../rstack-mode/playbooks/implement-issue.md) playbook |
 | "File an issue for this" | The [file-issue](../rstack-mode/playbooks/file-issue.md) playbook |
+| "Fix this bug" | The [fix-bug](../rstack-mode/playbooks/fix-bug.md) playbook |
+| "Get this PR green" or "babysit this PR" | The [watch-pr](../rstack-mode/playbooks/watch-pr.md) playbook |
 | "Review this PR" | The [review-pr](../rstack-mode/playbooks/review-pr.md) playbook |
 | "council" | council |
 | "Start a new app" or "plan a big feature" | The [new-app-or-feature](../rstack-mode/playbooks/new-app-or-feature.md) playbook |
