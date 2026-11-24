@@ -1,0 +1,14 @@
+[
+  {
+    "name": "frontend-design",
+    "repo": "anthropics/skills",
+    "path": "skills/frontend-design",
+    "ref": "41bbe19d1a1a7eaab5e7bb9050a417e5c6cffc8f",
+    "url": "https://github.com/anthropics/skills/tree/main/skills/frontend-design",
+    "owner": "Anthropic",
+    "license": "Apache-2.0",
+    "usedBy": [
+      "design"
+    ]
+  }
+]

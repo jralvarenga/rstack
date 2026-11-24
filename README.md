@@ -134,12 +134,28 @@ In Cursor, a team admin first clicks **Refresh** on the marketplace so it lists 
 
 rstack is opinionated on purpose; these are my rules. Fork it, rewrite the skills to match how you work, and rename the stack after yourself.
 
-## External design skill
+## External skills
 
-The `design` skill uses [`frontend-design`](https://github.com/anthropics/skills/tree/main/skills/frontend-design) as inspiration and a fallback when a project doesn't include it. It is not vendored in this repository; install it alongside rstack:
+[`external-skills.json`](external-skills.json) lists separately maintained skills that rstack uses. Each entry records its canonical GitHub repository and skill directory, owner, license when known, and the rstack skills that use it. The skill files stay in their upstream repositories.
+
+The `ref` is the full SHA of the last reviewed upstream commit that touched the skill directory. To add a skill, find its directory's latest commit on the upstream default branch and review it. Add its metadata and SHA to the registry and reference the upstream skill from each rstack skill that uses it. To remove one, delete its entry and those references. Uninstall it separately from any agents where you installed it.
+
+Each Monday, GitHub Actions checks the upstream default branches. When it finds updates, it opens or refreshes one pull request against `main` with the new pins, links to the upstream commits and comparisons, and a patch changeset. A maintainer reviews and merges the pull request. If upstream rewrites history and the pin disappears from the directory's history, review and update that pin manually. Run this command to check the pins locally without writing files.
+
+```bash
+bun scripts/update-external-skills.ts --dry-run
+```
+
+The `design` skill uses Anthropic's [`frontend-design`](https://github.com/anthropics/skills/tree/main/skills/frontend-design) as inspiration and a fallback. This command installs it alongside rstack from the upstream default branch.
 
 ```bash
 npx skills add anthropics/skills --skill frontend-design --global --agent claude-code --yes
+```
+
+To install the reviewed version, copy its full `ref` from the registry and replace `REVIEWED_SHA` below. [skills.sh documents the `owner/repo@ref` syntax.](https://github.com/vercel-labs/skills/blob/main/docs/commands.md#source-formats)
+
+```bash
+npx skills add anthropics/skills@REVIEWED_SHA --skill frontend-design --global --agent claude-code --yes
 ```
 
 ## Contributing
