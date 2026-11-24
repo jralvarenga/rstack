@@ -1,5 +1,20 @@
 # rstack
 
+## 3.0.0
+
+### Major Changes
+
+- 17d07c8: Rename the collection and plugin from `jralvarenga-skills` ("Rigo's Skills") to `rstack`. Reinstall with `rstack@jralvarenga`.
+
+### Minor Changes
+
+- 003efc8: Add the `agent-orchestration` skill: which model and provider handles each kind of work, when to delegate, how to brief delegates, and what to do when a model is unavailable.
+- ee8d4d5: Add the `council` skill: a review or feedback round by three delegates from three different providers, scored out of 10 per round, repeated until every member is satisfied, with the scores recorded in the PR description.
+- 9f4d57e: Track reviewed external skill versions in a registry and propose upstream updates in a weekly pull request.
+- 7158862: Package rstack for Cursor Marketplace review with an MIT license, a plugin logo, and submission instructions.
+- e70715d: Add the `rstack-help` skill, a short guide to what rstack is, its skills, and which skill or playbook fits a common ask, and the `setup-rstack` skill, which writes a marked rstack section into a project's `AGENTS.md` with the model routing generated from `agent-orchestration`'s routing table and any per-project overrides.
+- df9cbc2: Add the `rstack-mode` entry-point skill: core rules, an index of every rstack skill, routing from the kind of ask to the skills to load, and playbooks for filing an issue, implementing it, reviewing a PR, starting an app or feature, and running parallel delegates. Add an `agents/` pack with an `rstack` subagent that loads `rstack-mode` and `agent-orchestration`, registered in the Cursor manifest.
+
 ## 2.6.0
 
 ### Minor Changes
