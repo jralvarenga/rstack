@@ -140,7 +140,7 @@ rstack is opinionated on purpose; these are my rules. Fork it, rewrite the skill
 rstack borrows ideas from other people's agent stacks:
 
 - [pstack](https://github.com/cursor/plugins/tree/main/pstack) by poteto, the model for `rstack-mode`'s triggers, principles, autonomy rules, reply rules, and playbooks.
-- tstack.
+- [tstack](https://github.com/t3dotgg/tstack) by Theo (t3dotgg), the model for `council` and the `watch-pr` playbook.
 
 ## External skills
 

@@ -30,7 +30,7 @@ Each line is a moment in the task and what it requires. They fire on top of the 
 - **Before writing logic** → name the data shape first: the schema, the model, or the state and who owns it. See the [principles](#principles).
 - **Changing behavior or fixing a bug** → write or update the test first or alongside it, following [testing](../testing/SKILL.md#when-to-test). For a bug, the test fails before the fix.
 - **Before every commit** → run the project's formatter and checks, following [code-guidelines](../code-guidelines/SKILL.md#formatter), and the tests for what changed, following [testing](../testing/SKILL.md#running-tests).
-- **Before opening or handing over a PR** → follow the project's release process, like a changeset, then review your own diff with [code-review](../code-review/SKILL.md) and fix every P0 and P1.
+- **Before handing over a PR** → follow the project's release process, like a changeset, before you open it. Then review your own diff with [code-review](../code-review/SKILL.md) and fix every P0 and P1 before you hand the PR to me or mark it ready.
 - **A change that makes the agent files stale** → update them with [agent-file](../agent-file/SKILL.md) in the same PR.
 - **The work has an issue** → keep it in sync following [issue-management](../issue-management/SKILL.md), and move it to In Review when its PR opens.
 - **Review comments on your PR, from people or bots** → judge each one on its merits. Fix the real ones and reply with the reason on the rest. A bot comment isn't right because it exists.
@@ -49,7 +49,7 @@ My skills encode these principles. Read the linked section before you apply one.
 | Earn every abstraction | Tempted to add a queue, a cache, a layer, a shared component variant, or a dependency. Add it only for a concrete requirement. Prefer the smallest change and delete before you add. | [backend](../backend/SKILL.md#architecture-and-planning), [frontend](../frontend/SKILL.md#architecture-and-planning), [design](../design/SKILL.md#components) |
 | Derive, don't duplicate | Designing state. Keep it close to where it's used, put navigation in the URL, and derive values instead of storing them twice. | [frontend](../frontend/SKILL.md#architecture-and-planning) |
 | Every state is designed | Any UI or flow. Plan loading, empty, error, success, retry, and permission states with the main path. | [frontend](../frontend/SKILL.md#architecture-and-planning), [design](../design/SKILL.md#components) |
-| Ship in verifiable slices | Multi-step work. Each slice brings its schema, logic, and tests, and ends in a check that passes before the next one starts. | [backend](../backend/SKILL.md#architecture-and-planning), [testing](../testing/SKILL.md#when-to-test) |
+| Ship in verifiable slices | Multi-step work. Each slice brings what it needs to stand on its own, like its schema when data crosses a boundary, its logic, and its tests, and ends in a check that passes before the next one starts. | [backend](../backend/SKILL.md#architecture-and-planning), [testing](../testing/SKILL.md#when-to-test) |
 | Test behavior, not implementation | Writing or reviewing a test. Assert what a user or caller observes, fake only the boundaries you don't own, and never weaken a failing test to get green. | [testing](../testing/SKILL.md#what-to-test) |
 | A specific direction | Any visual work. Pick one signature element, keep the rest restrained, and replace anything that would look the same in an unrelated product. | [design](../design/SKILL.md#design-direction), [design](../design/SKILL.md#design-process) |
 | Follow what the project decided | An existing project made a different choice than my defaults. Follow it and mention the difference instead of migrating. | [app-architecture](../app-architecture/SKILL.md) |
@@ -71,7 +71,7 @@ My skills encode these principles. Read the linked section before you apply one.
 - Label every claim you didn't check directly as inferred or a guess. Say what you couldn't verify.
 - Never hand me a check you could have run yourself.
 - Link every PR, issue, and file you mention. For a PR, give its head commit and the state of its checks.
-- Keep the reply in the same language as my message, and keep code, commands, and names exactly as they are.
+- Keep the reply in the same language as my message, and keep code, commands, and names exactly as they are. When a loaded skill sets the language for what it writes, like [issue-management](../issue-management/SKILL.md#language) for issues and their report, that skill wins.
 
 ## Skills
 
@@ -135,7 +135,7 @@ When a task doesn't match a playbook, use the routing table, the triggers, and t
 
 ## Delegates
 
-When you delegate, follow [agent-orchestration](../agent-orchestration/SKILL.md) for the model, the brief, and isolation. Tell every delegate to load `rstack-mode` and `agent-orchestration` before it starts, and put the absolute path of this file in the brief so it can find the playbooks. Where the harness supports plugin agents, use the `rstack` agent from rstack's `agents/` folder, which does that for you.
+When you delegate, follow [agent-orchestration](../agent-orchestration/SKILL.md) for the model, the brief, and isolation. Tell every delegate to load `rstack-mode` and `agent-orchestration` before it starts, and give it a path to this file that resolves in its own checkout, like `skills/rstack-mode/SKILL.md` relative to the rstack repository or the installed skill, so it can find the playbooks. Never point it at a path inside your own worktree. Where the harness supports plugin agents, use the `rstack` agent from rstack's `agents/` folder, which does that for you.
 
 - You own every delegate's work. Read its diff and write your own summary instead of forwarding its report.
 - Give a fix round, a retry, or a follow-up to a fresh delegate with the original brief, every later decision, and the previous delegate's report and branch. Resume the same delegate only when the work needs state that lives in it, like uncommitted changes or a process it still runs.
