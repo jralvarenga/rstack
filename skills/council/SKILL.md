@@ -74,7 +74,7 @@ After each round, tell me:
 - **Disagreements:** where members contradict each other, what each said, and what you recommend.
 - **Next steps** cover what you recommend fixing or declining, why, and what needs my decision.
 - **Scores:** each member's score for the round.
-- **Prompt for AI agents:** for a code review with findings, the copy-ready prompt from [code-review](../code-review/SKILL.md#prompt-for-ai-agents) covering every finding you recommend fixing.
+- **Prompt for AI agents:** for a code review with findings, the summary body from [code-review](../code-review/SKILL.md#summary-body), with its prompt covering every finding you recommend fixing.
 
 ## Rounds
 

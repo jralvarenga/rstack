@@ -1,11 +1,11 @@
 ---
 name: code-review
-description: Review a pull request in any language against project rules and my code guidelines, then report severity-ranked issues as one summary and inline comments, each with a copy-ready prompt for AI agents to verify and fix them. Use when asked to review a PR, branch, or diff.
+description: Review a pull request in any language against project rules and my code guidelines, then post them the way cubic does: one review with an issue count and a prompt for AI agents covering every issue, and one inline comment per issue with its own prompt. Use when asked to review a PR, branch, or diff.
 ---
 
 Use this skill when your task is to review a PR in a codebase in any programming language, use and read [code guidelines](../code-guidelines/SKILL.md) as the base of the review but add additional rules and best practices for the review. Read [testing](../testing/SKILL.md) to judge the tests in the diff.
 
-Review every changed file in the PR. Produce one summary comment and one inline comment per issue. Each issue gets a severity. Project rules override the base guidelines.
+Review every changed file in the PR. Produce one review with a summary body and one inline comment per issue, in the format of [Review output](#review-output). Each issue gets a severity and a confidence. Project rules override the base guidelines.
 
 ## Gathering Context
 
@@ -65,140 +65,185 @@ Do not pad the review. Zero issues is a valid result.
 | P2 | 🟡 Medium | Edge-case bug, missing test, performance problem, or a clear guideline violation. Fix soon. |
 | P3 | 🔵 Low | Readability, naming, small cleanup. Optional. |
 
-## Summary comment
+## Review output
 
-Use this template for the summary comment:
+The review posts in the same shape cubic uses: one `COMMENT` review whose body is a short count and a prompt for AI agents covering every unresolved issue, with one inline comment per issue attached to it. Each inline comment carries its own prompt. Keep the wording, tags, and whitespace of the templates below exactly, and fill in only the `{placeholders}`. Use the `rstack` markers, never cubic's markers, links, or branding.
+
+Before posting anything, give me the overview in the reply instead of the review body: what the PR does, whether it matches its description and issue, the merge risk, the files reviewed and skipped, and the rules used.
+
+### Confidence
+
+Score every issue from 1 to 10 for how sure you are that it's real, after reading the whole file and the callers. Report only issues scored 7 or higher. Record the score in the inline comment's metadata, never in the summary.
+
+### Summary body
 
 ````markdown
-## PR Review
-
-**Found N issues:** 🔴 X critical · 🟠 X high · 🟡 X medium · 🔵 X low
-
-### Overview
-2–4 sentences: what the PR does, whether it does what the description says, and the overall risk of merging it.
-
-### Issues by file
-| File | 🔴 | 🟠 | 🟡 | 🔵 |
-|---|---|---|---|---|
-| `src/a.ts` | 1 | 0 | 2 | 0 |
-
-### Most important
-1. 🔴 Short title — `path:line`
-2. 🟠 Short title — `path:line`
-
-### Guidelines used
-Base guidelines, overridden by: CLAUDE.md (naming, error handling).
-
-<details><summary>Files reviewed (N) / skipped (N)</summary>
-
-Reviewed: ...
-Skipped (generated): ...
-
-</details>
+<!-- rstack:review-summary:start -->
+**{N} issues found** across {F} files
+<!-- rstack:review-summary:end -->
 
 <details>
-<summary>🤖 Prompt for AI agents (all issues)</summary>
+<summary>Prompt for AI agents (unresolved issues)</summary>
 
-```
-Check if these issues are valid. If one is, find its root cause and fix it. If one isn't, skip it and say why.
+```text
 
-PR: #<n> (<url>), branch `<branch>`. Work on that branch, fix in issue-number order, which is severity order (P0 → P3), run the formatter, checks, and tests, and push as few commits as reasonable. Do not merge.
+Check if these issues are valid — if so, understand the root cause of each and fix them. When an issue isn't valid or won't be fixed in this PR, reply in its thread with the reason and then resolve the thread. If appropriate, use sub-agents to investigate and fix each issue separately.
 
-<file name="src/a.ts">
-<issue number="1" severity="P0" location="src/a.ts:42">
-Short title. What's wrong and what goes wrong in practice. Expected fix: …
-</issue>
-<issue number="3" severity="P2" location="src/a.ts:88" also="src/c.ts:12">
-…
-</issue>
+
+<file name="{path}">
+
+<violation number="1" location="{path}:{line}">
+{P#}: {issue text}</violation>
+
+<violation number="2" location="{path}:{line}">
+{P#}: {issue text}</violation>
 </file>
 
-<file name="src/b.ts">
-<issue number="2" severity="P1" location="src/b.ts:10-14">
-…
-</issue>
-</file>
+<file name="{path2}">
 
-When you're done, list each issue number with fixed, skipped and why, or blocked and why.
+<violation number="1" location="{path2}:{line}">
+{P#}: {issue text}</violation>
+</file>
 ```
 
 </details>
+
+<!-- rstack:review-post:{full head sha} -->
 ````
 
-Include the prompt block only when N > 0. When the review found zero issues, omit it.
+- `{N}` counts the inline comments, and `{F}` counts the files reviewed. Write `**1 issue found**` for one issue. With zero issues, the body is `**No issues found** across {F} files` between the markers, with no `<details>` block.
+- The prompt lists every issue in the review, one `<violation>` per inline comment, with the same text the comment has. Number violations per file starting at 1 and sort them by line inside the file.
+- Keep the exact whitespace: one blank line after the opening fence, two after the instruction, one after each `<file name>` line and between violations. `</violation>` closes on the text's line, and `</file>` follows the last violation with no blank line.
+- There is no PR, branch, or commit header in the prompt. The agent runs it on the branch it already has.
+- When the target has no PR, like a branch or a local diff, give me the same summary body in the reply.
+
+### Inline comments
+
+Write one inline comment per issue on the changed line it's about:
+
+````markdown
+<!-- rstack:review-run={head sha} -->
+<!-- metadata:{"confidence":{7-10}} -->
+{P#}: {The problem and what goes wrong in practice. The concrete fix.}
+
+<details>
+<summary>Prompt for AI agents</summary>
+
+```text
+Check if this issue is valid — if so, understand the root cause and fix it. When an issue isn't valid or won't be fixed in this PR, reply in its thread with the reason and then resolve the thread. At {path}, line {line}:
+
+<comment>{the same text without the P# prefix}</comment>
+
+<file context>
+{the @@ header line of the diff hunk the line sits in, verbatim}
+{up to 3 diff lines before the line, the line, and up to 2 after, with their +, -, or space prefixes}
+</file context>
+```
+
+</details>
+
+```suggestion
+{replacement for the commented line or lines}
+```
+````
+
+For example:
+
+````markdown
+<!-- rstack:review-run=0a1b2c3 -->
+<!-- metadata:{"confidence":9} -->
+P1: `createOrder` calls `repo.save(order)` without awaiting it, so the handler returns 200 before the write finishes and write errors are lost. Await the save before responding.
+
+<details>
+<summary>Prompt for AI agents</summary>
+
+```text
+Check if this issue is valid — if so, understand the root cause and fix it. When an issue isn't valid or won't be fixed in this PR, reply in its thread with the reason and then resolve the thread. At src/orders/create-order.ts, line 42:
+
+<comment>`createOrder` calls `repo.save(order)` without awaiting it, so the handler returns 200 before the write finishes and write errors are lost. Await the save before responding.</comment>
+
+<file context>
+@@ -38,6 +38,9 @@ export async function createOrder(input: CreateOrderInput) {
+   const order = buildOrder(input);
++  validateStock(order);
++  repo.save(order);
++  return { status: 200, order };
+ }
+</file context>
+```
+
+</details>
+
+```suggestion
+  await repo.save(order);
+```
+````
+
+- The issue text is two sentences: the problem with its consequence, then the concrete fix. Name the function, variable, or value, so the text stands alone without the review.
+- The severity prefix is `P0:` to `P3:` from [Assigning severity](#assigning-severity), with no emoji or label.
+- Add the suggestion block after `</details>` when the fix fits in the commented lines. Otherwise leave it out and describe the fix in the text.
+- When the same problem repeats, comment once at the first place and name the other locations in the text.
+- Comment on a single line on the `RIGHT` side. Use a line range only when the problem spans the lines.
 
 ### Prompt for AI agents
 
-When the review found 1 or more issues, the summary ends with a copy-ready prompt that a coding agent can take to verify and fix every issue in one pass, the way cubic does it. Put it in a collapsible `<details><summary>🤖 Prompt for AI agents (all issues)</summary>` wrapping a fenced code block, so the whole prompt copies in one click and renders as plain text.
+The prompts let an agent pick up the review without reading it: the summary prompt fixes everything in one pass, and each inline prompt fixes one issue. Both start by telling the agent to check that each issue is valid, because a review comment is a claim. Use the exact instruction sentences from the templates, plural in the summary and singular inline.
 
-- List every issue in the review, not only "Most important", including the ones moved to "Other notes". Number them across the whole review in severity order (P0 → P3), then group them by file in `<file>` blocks, files ordered by their most severe issue. The numbers inside a file can skip, and the agent fixes by number, so a file's P2 never goes before another file's P1.
-- For each issue give its severity, a short title, the `path:line` or `path:start-end`, other locations when the same problem repeats, what's wrong, and the expected fix or the content of the suggestion block.
-- Write each issue so it stands alone. The agent reading it has the repository but not this review, so name the function, the variable, or the value it's about instead of saying "this" or "here".
-- Open with the instruction to check whether each issue is valid before fixing it. A review comment is a claim, and the agent should skip a wrong one and say why instead of forcing a fix.
-- Give the PR number and URL and the branch name. Tell it to fix in issue-number order, run the project's formatter, checks, and tests, push as few commits as reasonable, never merge, and finish with a status per issue number.
-- When the target has no PR, like a branch or a local diff, keep the prompt and replace the PR line with the branch or the base and head it should apply to.
+When you delegate the review or the fixes to another agent, pick its model and write its brief following [agent-orchestration](../agent-orchestration/SKILL.md). The summary prompt is the core of a fix delegate's brief only. A review delegate gets a read-only brief: it reports findings and never edits, commits, or pushes.
 
-When you delegate the review or the fixes to another agent, pick its model and write its brief following [agent-orchestration](../agent-orchestration/SKILL.md). The prompt above is the core of a fix delegate's brief only. A review delegate gets a read-only brief: it reports findings and never edits, commits, or pushes.
+### PR description summary
 
-When the review found zero issues, omit this section. Do not include an empty prompt.
+When the PR is mine, or I confirm it for someone else's PR, append this section to the PR description after a blank line, or replace it when it's already there. Leave the rest of the description as it is:
 
-## Inline comments
+```markdown
+<!-- This is an auto-generated description by rstack. -->
+---
+## Summary by rstack
+{One paragraph: what the PR does and why, with `code` names.}
 
-Write one inline comment per issue:
+- {One bullet per area of change, about behavior.}
 
-````markdown
-**🟠 P1 · Missing await on save()**
+<sup>Written for commit {full head sha}. Summary will update on new commits.</sup>
 
-`save()` returns a promise, but it is not awaited. The handler returns 200 before the write finishes, and write errors are lost.
-
-```suggestion
-await repo.save(order);
+<!-- End of auto-generated description by rstack. -->
 ```
-
-<sub>Rule: base guidelines › Async</sub>
-
-<details>
-<summary>🤖 Prompt for AI agents</summary>
-
-```
-Check if this issue is valid. If it is, find its root cause and fix it. If it isn't, say why.
-
-PR #<n>, branch `<branch>`, at src/orders/create-order.ts, line 42:
-
-<issue severity="P1">
-`save()` returns a promise that `createOrder` doesn't await, so the handler returns 200 before the write finishes and write errors are lost. Expected fix: `await repo.save(order)`.
-</issue>
-```
-
-</details>
-````
-
-- Start with the severity and a short title.
-- Explain the problem and what goes wrong in practice.
-- Add a suggestion block when the fix fits in the commented lines. Otherwise describe the fix in words.
-- End with a collapsed `🤖 Prompt for AI agents` block for that one issue, so it can be fixed on its own. Use the same wording as its entry in the summary prompt.
 
 ## Posting the review
 
-Show the summary (including the prompt for AI agents when N > 0) and the list of inline comments to the user first. Post only after they confirm. The prompts are part of the summary body and of each inline comment, never separate comments. When the review isn't posted, like for a branch or a local diff, still give the user the full prompt in the reply.
+Show me the overview, the summary body, and the inline comments first. Post only after I confirm. Post the summary and every inline comment as one review. The prompts are part of the summary body and of each inline comment, never separate comments.
 
-Build the payload in a file, then post it as one review:
+Build the payload in a file, then post it:
 
 ```json
 {
+  "commit_id": "{full head sha}",
   "event": "COMMENT",
-  "body": "<summary comment markdown>",
+  "body": "{summary body}",
   "comments": [
-    { "path": "src/a.ts", "line": 42, "side": "RIGHT", "body": "<inline comment>" },
-    { "path": "src/b.ts", "start_line": 10, "start_side": "RIGHT", "line": 14, "side": "RIGHT", "body": "<multi-line comment>" }
+    { "path": "src/a.ts", "line": 42, "side": "RIGHT", "body": "{inline comment}" },
+    { "path": "src/b.ts", "start_line": 10, "start_side": "RIGHT", "line": 14, "side": "RIGHT", "body": "{inline comment spanning lines}" }
   ]
 }
 ```
 
 ```bash
-gh api repos/{owner}/{repo}/pulls/<n>/reviews --method POST --input review.json
+gh api repos/{owner}/{repo}/pulls/{n}/reviews --method POST --input review.json
 ```
 
-Use `"event": "REQUEST_CHANGES"` only if the user asks for it, or if there is a P0 and the user agrees.
+Always post with `"event": "COMMENT"`. Use `REQUEST_CHANGES` only when I ask for it.
 
-If the API rejects a comment because its line is not in the diff, move the comment into the summary under "Other notes" with its `path:line`, keep it in the summary prompt, and post again.
+If the API rejects a comment because its line isn't in the diff, move it to the nearest changed line that causes the problem. When there's none, keep it only as a violation in the summary prompt and say so in the reply.
+
+## After fixes land
+
+When I ask you to recheck a review you posted, or to re-review after new commits:
+
+- For each issue fixed by a new commit, edit its inline comment to append `\n\n✅ Addressed in [`{sha7}`]({commit url})` and leave the rest of the comment as it is.
+- Rewrite the summary body: lower the count, and drop the violations that were fixed or whose threads were resolved. When none are left, the body becomes `**All reported issues were addressed** across {F} files` between the markers, with no `<details>` block. Update the commit in the `review-post` marker.
+- Don't reply in the threads or resolve them for the author. Don't comment again on issues that were fixed or resolved as won't fix.
+- A re-review covers the whole PR at its new head. Post new issues as a new review in the same format.
+
+```bash
+gh api repos/{owner}/{repo}/pulls/comments/{comment id} --method PATCH -f body="{edited inline comment}"
+gh api repos/{owner}/{repo}/pulls/{n}/reviews/{review id} --method PUT -f body="{rewritten summary body}"
+```
