@@ -17,6 +17,7 @@ It is written for the stack I use most: TypeScript, React, Next.js and TanStack 
 | `agent-file` | Creates and updates `AGENTS.md`, `CLAUDE.md`, and `DESIGN.md` from the codebase. |
 | `issue-management` | Creates and manages issues in Linear, GitHub, or any other tracker. |
 | `agent-orchestration` | Loads at the start of every task: decides what to do yourself or delegate, picks the model and provider for each part, and briefs the delegates. See [Every task](#every-task). |
+| `council` | Runs review or feedback rounds on a PR, plan, or design with three models from three providers, until all of them are satisfied. |
 
 Every skill lives in `skills/`. Don't copy them by hand; install rstack with one of the options below.
 
