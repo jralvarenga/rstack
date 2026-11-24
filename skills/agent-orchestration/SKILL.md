@@ -78,7 +78,7 @@ Keep the brief specific and short. Use my words for names and decisions, and nev
 ## Isolation
 
 - Every delegate that edits code works in its own worktree or branch, never in the checkout you or another delegate are using.
-- Give every delegate its own branch. Name it after the issue it implements, and add a short suffix when several delegates work on the same issue, for example `46-routing-table` and `46-fallbacks`. Say in the brief which base it starts from.
+- Give every delegate that edits code its own branch. Name it after the issue it implements, and add a short suffix when several delegates work on the same issue, for example `46-routing-table` and `46-fallbacks`. Say in the brief which base it starts from.
 - Read-only delegates, like research, exploration, and review, can share the current checkout.
 - When the work is finished, the delegate pushes its branch and opens a PR if the brief allows it, or otherwise hands the branch back, so you merge the results deliberately instead of finding them mixed in your working tree.
 
