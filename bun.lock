@@ -2,7 +2,7 @@
   "lockfileVersion": 1,
   "workspaces": {
     "": {
-      "name": "jralvarenga-skills",
+      "name": "rstack",
       "devDependencies": {
         "@changesets/cli": "2.29.8",
       },
