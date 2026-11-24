@@ -1,5 +1,5 @@
 {
-  "name": "jralvarenga-skills",
+  "name": "rstack",
   "version": "2.6.0",
   "private": true,
   "type": "module",
@@ -9,7 +9,7 @@
     "version": "changeset version && bun scripts/sync-plugin-versions.ts",
     "release": "changeset tag"
   },
-  "description": "Rigo Alvarenga's agent skills for software engineering",
+  "description": "rstack, Rigo's personal stack of agent skills",
   "repository": {
     "type": "git",
     "url": "https://github.com/jralvarenga/skills"

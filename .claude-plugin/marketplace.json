@@ -4,13 +4,13 @@
     "name": "Rigo Alvarenga",
     "url": "https://r1go.dev"
   },
-  "description": "Rigo Alvarenga's skills for software engineering.",
+  "description": "Rigo Alvarenga's plugins, home of rstack.",
   "plugins": [
     {
-      "name": "jralvarenga-skills",
-      "displayName": "Rigo's Skills",
+      "name": "rstack",
+      "displayName": "rstack",
       "source": "./",
-      "description": "Rigo Alvarenga's agent skills for software engineering: code guidelines, frontend design, code review, app architecture, backend, agent files, and issue management.",
+      "description": "rstack is my personal stack: the rules I want every agent to follow when it writes, designs, reviews, and ships code with me. Code guidelines, frontend design, code review, app architecture, backend, agent files, and issue management.",
       "category": "engineering",
       "keywords": [
         "engineering",

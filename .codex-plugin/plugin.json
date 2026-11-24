@@ -1,8 +1,8 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
-  "name": "jralvarenga-skills",
+  "name": "rstack",
   "version": "2.6.0",
-  "description": "Rigo Alvarenga's agent skills for software engineering: code guidelines, frontend design, code review, app architecture, backend, agent files, and issue management.",
+  "description": "rstack is my personal stack: the rules I want every agent to follow when it writes, designs, reviews, and ships code with me. Code guidelines, frontend design, code review, app architecture, backend, agent files, and issue management.",
   "author": {
     "name": "Rigo Alvarenga",
     "url": "https://r1go.dev"
@@ -24,8 +24,8 @@
   ],
   "skills": "./skills/",
   "interface": {
-    "displayName": "Rigo's Skills",
-    "shortDescription": "Personal code guidelines, frontend design, code review, app architecture, backend, agent file, and issue management rules",
+    "displayName": "rstack",
+    "shortDescription": "Rigo's personal stack: code guidelines, frontend design, code review, app architecture, backend, agent files, and issue management",
     "category": "Coding"
   }
 }

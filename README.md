@@ -1,14 +1,27 @@
-# Rigo's Skills
+# rstack
 
-Rigo's Skills is a personal collection of coding skills shared between Claude Code, Codex, ChatGPT, Cursor, Grok Build and any agent that supports the Agent Skills format.
+rstack is my personal stack. It is the set of rules I want every agent to follow when it writes, designs, reviews, and ships code with me, so Claude Code, Codex, Cursor, Grok Build, and any agent that supports the Agent Skills format work the same way.
 
-This repository is distributed as an agent plugin and through [skills.sh](https://skills.sh), not npm. The package is private so Changesets can manage versions, tags and GitHub Releases without publishing it to a registry.
+It is written for the stack I use most: TypeScript, React, Next.js and TanStack Start, React Native, Convex, oRPC, and Drizzle. The portable rules apply to other languages too.
 
-The source of every skill is inside `skills/`. Don't copy the skills manually.
+## Skills
 
-## Install as a plugin
+| Skill | What it does |
+| --- | --- |
+| `code-guidelines` | How the agent writes and formats code. |
+| `design` | How the agent designs the frontend. |
+| `frontend` | How the agent plans the frontend app, components, pages, and features. |
+| `backend` | How the agent plans APIs, databases, validation, and infrastructure. |
+| `app-architecture` | How the agent structures, sets up, and deploys apps, including repos, environments, and auth. |
+| `code-review` | Reviews a pull request against project rules and my code guidelines. |
+| `agent-file` | Creates and updates `AGENTS.md`, `CLAUDE.md`, and `DESIGN.md` from the codebase. |
+| `issue-management` | Creates and manages issues in Linear, GitHub, or any other tracker. |
 
-The repository is a plugin for every supported agent. Each agent reads its own manifest, and all of them load the same `skills/` folder:
+Every skill lives in `skills/`. Don't copy them by hand, install rstack with one of the options below.
+
+## Install
+
+rstack is a plugin for every supported agent. Each agent reads its own manifest, and all of them load the same `skills/` folder:
 
 | Agent | Manifest | Marketplace |
 | --- | --- | --- |
@@ -21,37 +34,31 @@ The repository is a plugin for every supported agent. Each agent reads its own m
 
 ```bash
 claude plugin marketplace add jralvarenga/skills
+claude plugin install rstack@jralvarenga
 ```
 
-```bash
-claude plugin install jralvarenga-skills@jralvarenga
-```
-
-Or inside a session: `/plugin marketplace add jralvarenga/skills`, then `/plugin install jralvarenga-skills@jralvarenga`.
+Or inside a session: `/plugin marketplace add jralvarenga/skills`, then `/plugin install rstack@jralvarenga`. Skills are then available as `/rstack:<skill>`, for example `/rstack:code-review`.
 
 ### Grok Build
 
-Grok Build reads Claude Code marketplaces and plugins, so install the plugin in Claude Code first and Grok picks it up. Otherwise add `jralvarenga/skills` as a marketplace from Grok's Marketplace tab.
+Grok Build reads Claude Code marketplaces and plugins, so install rstack in Claude Code first and Grok picks it up. Otherwise add `jralvarenga/skills` as a marketplace from Grok's Marketplace tab.
 
 ### Codex and ChatGPT
 
 ```bash
 codex plugin marketplace add jralvarenga/skills
-```
-
-```bash
-codex plugin add jralvarenga-skills@jralvarenga
+codex plugin add rstack@jralvarenga
 ```
 
 ### Cursor
 
-Add `jralvarenga/skills` as a team marketplace, then open **Customize**, find **Rigo's Skills** and select **Install**. For a local clone, link it into Cursor's local plugins and reload the window:
+Add `jralvarenga/skills` as a team marketplace, then open **Customize**, find **rstack** and select **Install**. For a local clone, link it into Cursor's local plugins and reload the window:
 
 ```bash
-ln -s "$PWD" ~/.cursor/plugins/local/jralvarenga-skills
+ln -s "$PWD" ~/.cursor/plugins/local/rstack
 ```
 
-## Install from skills.sh
+### skills.sh
 
 Install every skill globally without the plugin system:
 
@@ -63,9 +70,11 @@ npx skills add jralvarenga/skills --skill '*' --global \
   --yes
 ```
 
-## Link a local clone
+### Local clone
 
 ```bash
+git clone https://github.com/jralvarenga/skills.git rstack
+cd rstack
 ./scripts/link-skills.sh
 ```
 
@@ -74,11 +83,27 @@ This links every skill to:
 - `~/.agents/skills` for Codex and Cursor
 - `~/.claude/skills` for Claude Code
 
-Run it again after adding, removing or renaming a skill.
+Run it again after adding, removing, or renaming a skill.
+
+### Upgrading from `jralvarenga-skills`
+
+rstack used to be published as `jralvarenga-skills` ("Rigo's Skills"). The skills are the same, only the plugin id changed. Remove the old plugin and install `rstack`:
+
+```bash
+claude plugin uninstall jralvarenga-skills@jralvarenga
+claude plugin marketplace update jralvarenga
+claude plugin install rstack@jralvarenga
+```
+
+In Codex, remove `jralvarenga-skills@jralvarenga` and add `rstack@jralvarenga`. In Cursor, uninstall **Rigo's Skills** and install **rstack**, or point your local link at `~/.cursor/plugins/local/rstack`.
+
+## Make it yours
+
+rstack is opinionated on purpose, these are my rules. Fork it, rewrite the skills to match how you work, and rename the stack after yourself.
 
 ## External design skill
 
-The `design` skill uses [`frontend-design`](https://github.com/anthropics/skills/tree/main/skills/frontend-design) as inspiration and a fallback when a project doesn't include it. It is not vendored in this repository, install it alongside these skills:
+The `design` skill uses [`frontend-design`](https://github.com/anthropics/skills/tree/main/skills/frontend-design) as inspiration and a fallback when a project doesn't include it. It is not vendored in this repository, install it alongside rstack:
 
 ```bash
 npx skills add anthropics/skills --skill frontend-design --global --agent claude-code --yes
