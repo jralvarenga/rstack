@@ -178,8 +178,7 @@ async function main(dryRun: boolean): Promise<number> {
     }
   }
 
-  if (failures > 0 && failures === skills.length) return 1;
-  if (updates.length === 0) return 0;
+  if (updates.length === 0) return failures > 0 ? 1 : 0;
 
   const body = renderPullRequestBody(updates);
   if (dryRun) {
