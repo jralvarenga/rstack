@@ -102,19 +102,19 @@ Skipped (generated): ...
 ```
 Check if these issues are valid. If one is, find its root cause and fix it. If one isn't, skip it and say why.
 
-PR: #<n> (<url>), branch `<branch>`. Work on that branch, fix in severity order (P0 → P3), run the formatter, checks, and tests, and push as few commits as reasonable. Do not merge.
+PR: #<n> (<url>), branch `<branch>`. Work on that branch, fix in issue-number order, which is severity order (P0 → P3), run the formatter, checks, and tests, and push as few commits as reasonable. Do not merge.
 
 <file name="src/a.ts">
 <issue number="1" severity="P0" location="src/a.ts:42">
 Short title. What's wrong and what goes wrong in practice. Expected fix: …
 </issue>
-<issue number="2" severity="P2" location="src/a.ts:88" also="src/c.ts:12">
+<issue number="3" severity="P2" location="src/a.ts:88" also="src/c.ts:12">
 …
 </issue>
 </file>
 
 <file name="src/b.ts">
-<issue number="3" severity="P1" location="src/b.ts:10-14">
+<issue number="2" severity="P1" location="src/b.ts:10-14">
 …
 </issue>
 </file>
@@ -131,14 +131,14 @@ Include the prompt block only when N > 0. When the review found zero issues, omi
 
 When the review found 1 or more issues, the summary ends with a copy-ready prompt that a coding agent can take to verify and fix every issue in one pass, the way cubic does it. Put it in a collapsible `<details><summary>🤖 Prompt for AI agents (all issues)</summary>` wrapping a fenced code block, so the whole prompt copies in one click and renders as plain text.
 
-- List every issue in the review, not only "Most important", including the ones moved to "Other notes". Number them in severity order (P0 → P3) and group them by file in `<file>` blocks, files ordered by their most severe issue.
+- List every issue in the review, not only "Most important", including the ones moved to "Other notes". Number them across the whole review in severity order (P0 → P3), then group them by file in `<file>` blocks, files ordered by their most severe issue. The numbers inside a file can skip, and the agent fixes by number, so a file's P2 never goes before another file's P1.
 - For each issue give its severity, a short title, the `path:line` or `path:start-end`, other locations when the same problem repeats, what's wrong, and the expected fix or the content of the suggestion block.
 - Write each issue so it stands alone. The agent reading it has the repository but not this review, so name the function, the variable, or the value it's about instead of saying "this" or "here".
 - Open with the instruction to check whether each issue is valid before fixing it. A review comment is a claim, and the agent should skip a wrong one and say why instead of forcing a fix.
-- Give the PR number and URL and the branch name. Tell it to fix in severity order, run the project's formatter, checks, and tests, push as few commits as reasonable, never merge, and finish with a status per issue number.
+- Give the PR number and URL and the branch name. Tell it to fix in issue-number order, run the project's formatter, checks, and tests, push as few commits as reasonable, never merge, and finish with a status per issue number.
 - When the target has no PR, like a branch or a local diff, keep the prompt and replace the PR line with the branch or the base and head it should apply to.
 
-When you delegate the review or the fixes to another agent, pick its model and write its brief following [agent-orchestration](../agent-orchestration/SKILL.md). The prompt above is the core of that brief.
+When you delegate the review or the fixes to another agent, pick its model and write its brief following [agent-orchestration](../agent-orchestration/SKILL.md). The prompt above is the core of a fix delegate's brief only. A review delegate gets a read-only brief: it reports findings and never edits, commits, or pushes.
 
 When the review found zero issues, omit this section. Do not include an empty prompt.
 

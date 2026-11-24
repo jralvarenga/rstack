@@ -20,7 +20,7 @@ When you are a delegate, the brief already made this decision. Do the work yours
 
 This table is the single source of truth for which model handles which work. Other skills, like council and setup-rstack, point here instead of naming models themselves. When models change, update this table only.
 
-The ideal stack to have in the machine is Claude Code, Codex and Cursor/Grok, base on what's installed in the machine use the model require that match the desire model, tell the user what's missing and work with the available tools
+The ideal setup has Claude Code, Codex, and Cursor or Grok installed. Before you delegate, check which models the installed harnesses can reach. Use the row's primary model, then its fallback, following the [fallback rules](#fallbacks). Tell me which harness or model is missing, and never substitute a model the table doesn't list for that row.
 
 | Task type                     | Model                                                         | Provider                   | Fallback                                           | Reasoning effort |
 | ----------------------------- | ------------------------------------------------------------- | -------------------------- | -------------------------------------------------- | ---------------- |

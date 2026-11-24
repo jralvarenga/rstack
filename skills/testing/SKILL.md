@@ -31,7 +31,7 @@ Whenever a test is added, always put it inside a test folder, never next to the 
 - Put the test folder directly inside the folder that contains the source files it verifies, for example components/ui/__tests__/button.test.tsx for components/ui/button.tsx.
 - When the test runner only discovers tests in a project-level folder, like `tests` for Rust integration tests or `test` for Dart, Flutter and Elixir, put the tests in that folder and mirror the source structure inside it.
 - Only place tests outside a test folder when the language requires it, like Go `_test.go` files next to the source or Rust unit tests in a `#[cfg(test)]` module inside the source file.
-- Give each source file with testable behavior its own test file, keeping its filename and adding `.test.ts` or `.test.tsx`.
+- Give each source file with testable behavior its own test file, keeping its filename. In JavaScript and TypeScript add `.test.ts` or `.test.tsx`. In other languages follow the runner's naming, like `test_<name>.py` for pytest.
 - Keep folder-specific fixtures and helpers in that folder's test directory, and shared testing infrastructure, like factories, fakes, and setup files, in a dedicated application-level testing directory. In a monorepo, keep shared test configuration in packages/config as described in [app-architecture](../app-architecture/SKILL.md).
 
 ## Writing a test
@@ -54,16 +54,16 @@ Whenever a test is added, always put it inside a test folder, never next to the 
 ## Backend
 
 - Test the public contract and the business behavior: valid and invalid inputs against the schemas, authorization rules, error codes, state transitions, and edge cases.
-- Run integration tests for services and queries against a real Postgres database started from the same Docker image used in development, as described in [backend](../backend/SKILL.md#infrastructure), instead of mocking the database. Reset it between tests through migrations and seeds.
+- For Postgres-backed services and queries, run integration tests against a real Postgres database started from the same Docker image used in development, as described in [backend](../backend/SKILL.md#infrastructure), instead of mocking the database. Build the schema once with migrations, then isolate each test with a transaction that rolls back or an explicit truncate between tests. Seed only the data a test needs.
 - Test procedures and routes through the server handler to verify validation, authentication, status codes, and response shapes.
 - For Convex, test functions with the project's Convex test harness, like `convex-test`, instead of calling the handlers directly.
 - Isolate external services with fakes at the lib layer.
 
 ## Running tests
 
-- The project provides commands to run all tests, a single file, watch mode, and coverage. Add the missing ones when you set up a runner, and record them in the agent files with [agent-file](../agent-file/SKILL.md).
+- When the project has a test runner, it should have commands to run all tests, a single file, watch mode, and coverage. Add the missing ones and record them in the agent files with [agent-file](../agent-file/SKILL.md). When it has no runner, follow the no-test-setup rule under [Reporting](#reporting) instead of inventing commands.
 - While working, run the tests for what you changed. Before every commit, run the formatter, the checks, and the tests for what changed. Before opening or handing over a PR, run the full suite when it's practical.
-- CI runs the tests on every pull request, as described in [app-architecture](../app-architecture/SKILL.md#deployment). Never bypass a failing check.
+- When the project has CI, it runs the tests on every pull request, as described in [app-architecture](../app-architecture/SKILL.md#deployment). Never bypass a failing check. When there's no CI or no tests in it, say so instead of treating CI as a check that passed.
 - A flaky test is a bug. Rerun it once to confirm it's flaky, then fix it, or skip it with a linked issue and say so. Never add retries to hide it.
 - Coverage is a map, not a goal. Use it to find untested changed behavior, not to hit a percentage.
 

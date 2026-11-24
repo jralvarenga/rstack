@@ -1,9 +1,9 @@
 ---
 name: council
-description: Rules on how the agent runs a council, review or feedback rounds by three delegates from different providers at medium reasoning effort. Use when I say "council", or ask for a multi-provider review, feedback round, or second opinions on a plan, design, change, or PR. Keep feedback read-only and drive fixes to completion when I authorize them.
+description: Rules on how the agent runs a council, review or feedback rounds by three delegates from different providers at medium reasoning effort. Use only when I say "council" or ask for a council by name on a plan, design, change, or PR. A second opinion or named reviewers go through agent-orchestration, not a council. Keep feedback read-only and drive fixes to completion when I authorize them.
 ---
 
-These are my rules on how to run a council. Three strong models from different providers (or the same depending on the available stack) review the same work and disagree in the open. Use organization and project rules as the base and apply these rules as long as they do not conflict with them.
+These are my rules on how to run a council. Three strong models from different providers review the same work, or, with my OK, from fewer providers when the available stack can't reach three. They review the same work and disagree in the open. Use organization and project rules as the base and apply these rules as long as they do not conflict with them.
 
 When I say "council", run this flow on the work in front of us, a PR, a branch, a plan, or a design. Pick the model, brief, and tools for every member following [agent-orchestration](../agent-orchestration/SKILL.md).
 
@@ -36,7 +36,7 @@ If something can't be fixed first, say what it is and put it in every brief, so 
 
 - When I name the members, use exactly those, as long as they are three members from three different providers. When they aren't, tell me what's wrong with the panel and wait for a valid one.
 - Otherwise use the members from the "Council" row of the routing table in [agent-orchestration](../agent-orchestration/SKILL.md#routing-table). Don't pick models yourself and don't keep your own list.
-- A council has three members, one per provider, each at the reasoning effort of the Council row in the [routing table](../agent-orchestration/SKILL.md#routing-table), medium by default. Two members from the same provider is not a council.
+- A council has three members, one per provider, each at the reasoning effort of the Council row in the [routing table](../agent-orchestration/SKILL.md#routing-table), medium by default. Two members from the same provider is not a full council. Use one only when I OK it after you tell me which providers are missing.
 - You are the chair, not a member. You brief, collect, summarize, and fix, but your opinion never counts as a member's.
 
 ## Missing members

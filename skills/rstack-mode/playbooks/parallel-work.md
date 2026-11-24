@@ -10,7 +10,7 @@ Use when a task splits into pieces that delegates can work on at the same time, 
 4. Give every delegate that edits code its own branch or worktree, named after its issue, and state its base.
 5. Brief each delegate following agent-orchestration, and tell it to load `rstack-mode` and `agent-orchestration` first. Use the `rstack` agent from rstack's `agents/` folder when the harness supports it.
 6. Run the independent delegates in parallel and the dependent ones in sequence, passing earlier results into the next brief.
-7. Check every result yourself: read the diff, the tests, and the pull request, and rerun the tests when the delegate's report doesn't show a run. Review each pull request with the [review-pr](review-pr.md) playbook.
+7. Check every result yourself: read the diff, the tests, and the pull request, and when the change needs tests and the report doesn't show a run, run the project's test command for it yourself. Review each pull request with the [review-pr](review-pr.md) playbook.
 
 ## Done when
 

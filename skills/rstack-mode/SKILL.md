@@ -28,11 +28,11 @@ Each line is a moment in the task and what it requires. They fire on top of the 
 - **First message** → restate my goal and the smallest change that meets it in one or two lines, then proceed. Open every delegate brief, PR description, and final report with that goal.
 - **A choice you could settle by running something** → try it on your branch, a script, or a quick prototype, and show me the result instead of asking which way to go.
 - **Before writing logic** → name the data shape first: the schema, the model, or the state and who owns it. See the [principles](#principles).
-- **Changing behavior or fixing a bug** → write or update the test first or alongside it, following [testing](../testing/SKILL.md#when-to-test). For a bug, the test fails before the fix.
+- **Changing behavior or fixing a bug** → write or update the test first or alongside it, following [testing](../testing/SKILL.md#when-to-test). For a bug you can reproduce, the test fails before the fix. When a test can't reproduce it, write down the steps and the output instead, as the [fix-bug](playbooks/fix-bug.md) playbook says.
 - **Before every commit** → run the project's formatter and checks, following [code-guidelines](../code-guidelines/SKILL.md#formatter), and the tests for what changed, following [testing](../testing/SKILL.md#running-tests).
 - **Before handing over a PR** → follow the project's release process, like a changeset, before you open it. Then review your own diff with [code-review](../code-review/SKILL.md) and fix every P0 and P1 before you hand the PR to me or mark it ready.
 - **A change that makes the agent files stale** → update them with [agent-file](../agent-file/SKILL.md) in the same PR.
-- **The work has an issue** → keep it in sync following [issue-management](../issue-management/SKILL.md), and move it to In Review when its PR opens.
+- **The work has an issue** → keep it in sync following [issue-management](../issue-management/SKILL.md), and move it to In Review, or the tracker's equivalent, when its PR opens.
 - **Review comments on your PR, from people or bots** → judge each one on its merits. Fix the real ones and reply with the reason on the rest. A bot comment isn't right because it exists.
 - **Two fixes for the same symptom failed** → stop patching. Write down the assumption they share, test it directly, and only then write the next fix.
 - **Long or unattended work** → keep a running log of what you did and why in the PR or the issue, so I can catch up without the conversation.
@@ -60,7 +60,7 @@ My skills encode these principles. Read the linked section before you apply one.
 
 ## Autonomy
 
-- Reversible work proceeds without asking: editing on a branch, running commands, pushing your own branch, opening a PR, commenting on your own PR, and updating the issue you are working on.
+- Reversible work proceeds without asking: editing on a branch, running commands, pushing your own branch, opening a PR, replying on your own PR, and updating the issue you are working on. Posting a review still follows the confirmation step of the [review-pr](playbooks/review-pr.md) playbook.
 - Always pause before irreversible or outward-facing actions: merging, force-pushing a shared branch, deploying, deleting data, posting a review on someone else's PR, or messaging anyone but me.
 - When I say "don't stop", "run until done", or "I'm going to bed", keep going through the playbook without check-ins. The pause list above still holds.
 - No is a valid answer. When I ask whether to do something or show you an approach, give your real judgment. Push back or say it doesn't earn its place when that's true. Agreeing isn't the default.
@@ -100,7 +100,7 @@ Match the ask to every row that fits and load all of the skills in them:
 | The ask | Load |
 | --- | --- |
 | Any code change | code-guidelines, plus the area skills below |
-| New or changed behavior, a bug fix, or writing, running, or setting up tests | testing |
+| New or changed behavior, a bug fix, or writing, running, setting up, or reviewing tests | testing |
 | UI, components, pages, styling | frontend and design |
 | APIs, databases, servers, jobs, Docker | backend |
 | A new app, package, or service, CI/CD, deployments, environments, auth | app-architecture |

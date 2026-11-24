@@ -9,7 +9,7 @@ Use when I ask to start a new app, package, or service, or a feature big enough 
 3. When it has a server side, load [backend](../../backend/SKILL.md) to plan the API, the database, and the jobs it needs.
 4. When it has a user-facing interface, load [frontend](../../frontend/SKILL.md) to plan the pages, components, routing, and data fetching.
 5. When it has a user-facing interface or output, load [design](../../design/SKILL.md) to set the visual direction before building any UI.
-6. Load [testing](../../testing/SKILL.md) and name the tests that prove each piece: the runner and commands for a new app, and the unit, integration, and end-to-end tests each piece needs.
+6. Load [testing](../../testing/SKILL.md) and name the tests that prove each piece: the runner and commands for a new app, and the unit, integration, or end-to-end tests each piece needs, at the lowest level that proves it.
 7. Write the plan with one item per deliverable piece, each with its tests. Save it to a file only when I ask for one. If I asked only for a plan, give it to me and stop here.
 8. When I ask you to build or update the agent files, load [agent-file](../../agent-file/SKILL.md) to record the decisions in `AGENTS.md` and the visual ones in `DESIGN.md` when the project has something to design. Keep `CLAUDE.md` as the `@AGENTS.md` import.
 9. When I ask you to file issues, use the [file-issue](file-issue.md) playbook, one issue per deliverable piece.
