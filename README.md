@@ -168,6 +168,15 @@ bun run release
 
 `bun run release` only creates a Git tag. It does not publish to npm.
 
+## Publishing
+
+1. Merge the packaging changes into `main` and complete the release steps above so the public repository has the version to submit.
+2. Test the released checkout using the local Cursor install instructions above. Reload Cursor, find **rstack** in **Customize**, and confirm its skills, the `rstack` subagent, and the always-on `agent-orchestration` rule load. Check the relative paths in both manifests and run `claude plugin validate .` for the Claude companion manifest.
+3. Sign in to Cursor and submit `https://github.com/jralvarenga/skills` at the [Cursor Marketplace publishing form](https://cursor.com/marketplace/publish). Cursor reviews the repository before listing it. [Cursor's submission checklist](https://cursor.com/docs/reference/plugins#submission-checklist)
+4. After approval, confirm the listing in Cursor Marketplace and check availability in Grok Bot. In the official catalog, `pstack` lives in its own directory and has an entry in the top-level marketplace manifest with `name`, `source`, and `description`. If Cursor adds rstack to that catalog, the corresponding entry would use `rstack` as the name and point `source` to the directory Cursor assigns it. [pstack package](https://github.com/cursor/plugins/tree/main/pstack) · [Official catalog manifest](https://github.com/cursor/plugins/blob/main/.cursor-plugin/marketplace.json)
+
+The submission is the public repository URL. It contains the Cursor manifest and its local marketplace entry, the portable `plugin.json`, the Claude and Codex manifests, the bundled `skills/`, the `agents/` subagent and the `rules/` always-on rule for Cursor, the `hooks/` prompt hook for Claude Code, the PNG logo, the MIT `LICENSE`, and this README.
+
 ## GitHub setup
 
 Protect the `main` branch with these settings:
