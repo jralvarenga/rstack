@@ -21,7 +21,7 @@ This table is the single source of truth for which model handles which work. Oth
 
 - Pick the row by the main kind of work in the task, not by the files it touches. A plan that ends in a small edit is planning, a refactor across many files is implementation.
 - Quick low-effort tasks are mechanical and well-specified, for example renaming, reformatting, collecting file lists, or summarizing a log. Use Haiku for the smallest ones and Sonnet when the task needs some judgment.
-- The fallback is a strong model from a different provider, so an outage of one provider never blocks a row. It runs at the same reasoning effort as the primary.
+- The fallback is a model from a different provider at the same tier as the primary, a strong model for the high-effort rows and a fast one for quick tasks, so an outage of one provider never blocks a row. It runs at the same reasoning effort as the primary.
 - The council row is the default panel for a multi-provider review: one strong model from each of three providers, so their blind spots don't overlap.
 - When I name a model, provider, or effort for a task, use mine instead of the table.
 
@@ -41,7 +41,9 @@ Delegate when:
 - It splits into independent pieces that can run at the same time.
 - I ask for a delegate, a second opinion, or a specific model.
 
-Never delegate the decision of what to build or the final report to me. You own the plan, you check the results, and you answer for them.
+When both lists match, do it yourself, unless I asked for a delegate. A one-file mechanical fix you already have the context for stays with you even though it belongs to the quick-task row.
+
+Never delegate the decision of what to build, or the final report you give me. You own the plan, you check the results, and you answer for them.
 
 ## Briefing a delegate
 
@@ -67,7 +69,7 @@ Keep the brief specific and short. Use my words for names and decisions, and nev
 - Every delegate that edits code works in its own worktree or branch, never in the checkout you or another delegate are using.
 - Name the branch after the issue it implements, and say in the brief which base it starts from.
 - Read-only delegates, like research, exploration, and review, can share the current checkout.
-- When the work is finished, the delegate pushes its branch and opens a PR, or hands the branch back, so you merge the results deliberately instead of finding them mixed in your working tree.
+- When the work is finished, the delegate pushes its branch and opens a PR if the brief allows it, or otherwise hands the branch back, so you merge the results deliberately instead of finding them mixed in your working tree.
 
 ## Fallbacks
 
