@@ -1,0 +1,4 @@
+interface:
+  display_name: "Council"
+  short_description: "Run a multi-provider review until every member is satisfied"
+  default_prompt: "Use $council to review this work with a council of three providers according to my conventions."
