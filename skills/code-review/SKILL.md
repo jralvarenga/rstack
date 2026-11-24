@@ -1,6 +1,6 @@
 ---
 name: code-review
-description: Review a pull request in any language against project rules and my code guidelines, then post them the way cubic does: one review with an issue count and a prompt for AI agents covering every issue, and one inline comment per issue with its own prompt. Use when asked to review a PR, branch, or diff.
+description: Review a pull request in any language against project rules and my code guidelines, then post the issues the way cubic does: one review with an issue count and a prompt for AI agents covering every issue, and one inline comment per issue with its own prompt. Use when asked to review a PR, branch, or diff.
 ---
 
 Use this skill when your task is to review a PR in a codebase in any programming language, use and read [code guidelines](../code-guidelines/SKILL.md) as the base of the review but add additional rules and best practices for the review. Read [testing](../testing/SKILL.md) to judge the tests in the diff.
