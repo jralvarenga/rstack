@@ -13,7 +13,7 @@ These are my rules on how the agent tests code. A test is the evidence that a ch
 - **Planning a feature or a slice** → name the tests that will prove each acceptance criterion as part of the plan.
 - **No tests needed** → files with only types, generated code, configuration, or copy changes. Don't add empty test files.
 
-Never delete, skip, or weaken a failing test to get a green run. Change a test only when the behavior it checks changed on purpose, and say so in the PR.
+Never delete, skip, or weaken a failing test to get a green run. The only exception is a confirmed flaky test, skipped with a linked issue as [Running tests](#running-tests) describes. Change a test only when the behavior it checks changed on purpose, and say so in the PR.
 
 ## What to test
 

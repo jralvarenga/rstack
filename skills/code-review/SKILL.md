@@ -93,7 +93,7 @@ Score every issue from 1 to 10 for how sure you are that it's real, after readin
 ### Guidelines used
 {Base guidelines, overridden by: the project files and the topics they cover.}
 
-<details><summary>Files reviewed ({N}) / skipped ({N})</summary>
+<details><summary>Files reviewed ({F}) / skipped ({S})</summary>
 
 Reviewed: {paths}
 Skipped: {paths and why, or "None"}
@@ -129,7 +129,7 @@ Check if these issues are valid — if so, understand the root cause of each and
 <!-- rstack:review-post:{full head sha} -->
 ````
 
-- `{N}` counts the issues, and `{F}` counts the files reviewed. Write `**1 issue found**` for one issue. With zero issues, write `**No issues found** across {F} files` and drop the severity line, "Issues by file", "Most important", and the prompt. Keep the rest.
+- `{N}` counts the issues, `{F}` counts the files reviewed, and `{S}` counts the files skipped. Write `**1 issue found**` for one issue. With zero issues, write `**No issues found** across {F} files` and drop the severity line, "Issues by file", "Most important", and the prompt. Keep the rest.
 - The summary body is only about the review. What the PR does and changes goes in the [PR description](#pr-description-summary), never in the review.
 - "Most important" lists the P0 and P1 issues, or the top three when there are none.
 - The prompt lists every issue in the review, with the same text its inline comment has. Number violations per file starting at 1 and sort them by line inside the file.
@@ -267,7 +267,7 @@ If the API rejects a comment because its line isn't in the diff, move it to the 
 
 When I ask you to recheck a review you posted, or to re-review after new commits:
 
-- For each issue fixed by a new commit, edit its inline comment to append `\n\n✅ Addressed in [`{sha7}`]({commit url})` and leave the rest of the comment as it is.
+- For each issue fixed by a new commit, edit its inline comment to append ``\n\n✅ Addressed in [`{sha7}`]({commit url})`` and leave the rest of the comment as it is.
 - Rewrite the summary body: lower the counts and the tables, and drop the violations that were fixed or whose threads were resolved. When none are left, the count line becomes `**All reported issues were addressed** across {F} files`, and the severity line, the issue sections, and the prompt are dropped. Update the commit in the `review-post` marker.
 - Rewrite the rstack section of the PR description for the new head: its summary, "Changes in this PR", "Needed outside this PR", and the commit.
 - Don't reply in the threads or resolve them for the author. Don't comment again on issues that were fixed or resolved as won't fix.
