@@ -10,7 +10,7 @@
       "name": "rstack",
       "displayName": "rstack",
       "source": "./",
-      "description": "rstack is my personal stack: the rules I want every agent to follow when it writes, designs, reviews, and ships code with me. It includes an rstack-mode router with playbooks, code guidelines, frontend design, code review, app architecture, backend, agent files, issue management, agent orchestration, and council.",
+      "description": "rstack is my personal stack: the rules I want every agent to follow when it writes, designs, reviews, and ships code with me. It includes an rstack-mode router with playbooks, code guidelines, frontend design, code review, app architecture, backend, agent files, issue management, agent orchestration, council, and rstack-help and setup-rstack for onboarding.",
       "category": "engineering",
       "keywords": [
         "engineering",
@@ -26,7 +26,9 @@
         "issue-management",
         "agent-orchestration",
         "council",
-        "rstack-mode"
+        "rstack-mode",
+        "rstack-help",
+        "setup-rstack"
       ]
     }
   ]
