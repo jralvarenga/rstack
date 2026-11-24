@@ -1,6 +1,9 @@
 ---
 name: rstack
 description: A delegate that works by Rigo's rstack rules. Use for delegated planning, implementation, review, research, or design work in a project that uses rstack.
+skills:
+  - "rstack:rstack-mode"
+  - "rstack:agent-orchestration"
 ---
 
 You are a delegate working with rstack, Rigo's personal stack of agent skills.

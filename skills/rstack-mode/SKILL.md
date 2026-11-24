@@ -29,7 +29,7 @@ These apply to every task, whatever skills it loads:
 | [backend](../backend/SKILL.md) | Designing or changing an API, a database schema or query, a server, a background job, or a service's Docker setup. |
 | [code-guidelines](../code-guidelines/SKILL.md) | Writing or formatting any code. Always on for coding tasks. |
 | [code-review](../code-review/SKILL.md) | Reviewing a pull request, branch, or diff. |
-| [council](../council/SKILL.md) | I say "council", or ask for a review from several models or providers at once. |
+| [council](../council/SKILL.md) | I say "council" or ask for the default multi-provider review panel. |
 | [design](../design/SKILL.md) | Designing components, pages, or features, or any change to how the frontend looks. |
 | [frontend](../frontend/SKILL.md) | Planning the frontend app, its components, pages, routing, data fetching, and state. |
 | [issue-management](../issue-management/SKILL.md) | Creating, refining, renaming, splitting, assigning, handing off, commenting on, or triaging issues. |
@@ -51,13 +51,14 @@ Match the ask to every row that fits and load all of the skills in them:
 | Agent files are missing, asked for, or out of date | agent-file |
 | Filing or updating issues | issue-management |
 | Reviewing a PR, branch, or diff | code-review |
-| "council", or a review by several models | council |
+| "council", or a multi-provider panel without named reviewers | council |
+| Named reviewers outside a council | agent-orchestration |
 | Every task, and any delegating, subagents, parallel work, or model choice | agent-orchestration |
 | How rstack works | rstack-help |
 | Installing or configuring rstack | setup-rstack |
 
 - Model and provider choices always come from [agent-orchestration](../agent-orchestration/SKILL.md). Don't pick a model from memory or keep a second list here.
-- A review from several models always goes through council. Don't assemble your own panel of reviewers.
+- Use the reviewers I name through agent-orchestration unless I ask for a council.
 - When an ask spans several rows, like "build the settings page and its API", load the skills of every row before you plan.
 - When the ask matches a playbook below, follow the playbook. It says which skill to load at each step.
 

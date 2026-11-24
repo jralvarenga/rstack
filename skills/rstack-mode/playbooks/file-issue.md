@@ -6,7 +6,7 @@ Use when I ask to file, refine, rename, split, assign, hand off, or triage an is
 
 1. Load [issue-management](../../issue-management/SKILL.md).
 2. Pick the tracker, team, project, or repository from the area of the work.
-3. Search it for an issue that already covers the work. Update that one instead of opening a duplicate.
+3. Search for an issue that already covers the work. Reuse an open match. If the only match is closed, resolved, or canceled, create a new issue and link the old one under Related unless I ask you to reopen it.
 4. Read the code or context the issue is about, when it's available, before writing the body.
 5. Write the title and body following issue-management. Keep my intent literally and put open questions in the body.
 6. When I listed several things, split them into one issue per independently deliverable piece and link the related ones. When the work has a clear parent, create the parent and add the rest as sub-issues.

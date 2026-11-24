@@ -9,10 +9,11 @@ Use when I ask to start a new app, package, or service, or a feature big enough 
 3. When it has a server side, load [backend](../../backend/SKILL.md) to plan the API, the database, and the jobs it needs.
 4. When it has a user-facing interface, load [frontend](../../frontend/SKILL.md) to plan the pages, components, routing, and data fetching.
 5. When it has a user-facing interface or output, load [design](../../design/SKILL.md) to set the visual direction before building any UI.
-6. Load [agent-file](../../agent-file/SKILL.md) to record the decisions in `AGENTS.md`, and the visual ones in `DESIGN.md` when the project has something to design. Keep `CLAUDE.md` as the `@AGENTS.md` import.
-7. When the work needs tracking, file it with the [file-issue](file-issue.md) playbook, one issue per deliverable piece.
-8. Build each tracked piece with the [implement-issue](implement-issue.md) playbook, or split the pieces across delegates with the [parallel-work](parallel-work.md) playbook. Build untracked work on its own branch with the skills loaded above, then open a pull request and review it with code-review.
+6. Write the plan with one item per deliverable piece. Save it to a file only when I ask for one. If I asked only for a plan, give it to me and stop here.
+7. When I ask you to build or update the agent files, load [agent-file](../../agent-file/SKILL.md) to record the decisions in `AGENTS.md` and the visual ones in `DESIGN.md` when the project has something to design. Keep `CLAUDE.md` as the `@AGENTS.md` import.
+8. When I ask you to file issues, use the [file-issue](file-issue.md) playbook, one issue per deliverable piece.
+9. When I ask you to build, use the [implement-issue](implement-issue.md) playbook for tracked pieces or the [parallel-work](parallel-work.md) playbook for delegates. For untracked work, load [code-guidelines](../../code-guidelines/SKILL.md), build on its own branch with the relevant skills, then open a pull request and review it with [code-review](../../code-review/SKILL.md).
 
 ## Done when
 
-The plan covers architecture and each of backend, frontend, and design that the work needs, and the agent files record the decisions. When I asked only for a plan, every piece is filed as an issue or listed in the plan. When I asked to build it, every piece is in an open pull request.
+The plan lists every deliverable piece and covers architecture and the backend, frontend, and design work it needs. When I asked for issues, I have their links. When I asked for agent file updates or a build, the agent files record the decisions. When I asked to build, every piece is in an open pull request.
