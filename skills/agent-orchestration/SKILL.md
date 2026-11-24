@@ -3,24 +3,25 @@ name: agent-orchestration
 description: Rules on which model and provider the agent should delegate each kind of work to, when to delegate instead of doing the work itself, how to brief a delegate, and how to run delegates in parallel or in isolation. Use when orchestrating subagents, delegating planning, implementation, review, research, or design work, or picking a model for a task.
 ---
 
-These are my rules on how an orchestrating agent splits work between itself and its delegates. The goal is that every kind of work goes to the model that does it best, each delegate gets a brief it can act on without asking, and nothing is silently swapped for a different model. Use organization and project rules as the base and apply these rules as long as they do not conflict with them.
+These are my rules on how an orchestrating agent splits work between itself and its delegates. The goal is that every kind of work goes to the model that does it best, each delegate gets a brief it can act on without asking, and when a model is unavailable the work moves to a known fallback instead of an improvised one. Use organization and project rules as the base and apply these rules as long as they do not conflict with them.
 
 ## Routing table
 
 This table is the single source of truth for which model handles which work. Other skills, like council and setup-rstack, point here instead of naming models themselves. When models change, update this table only.
 
-| Task type | Model | Provider | Reasoning effort |
-| --- | --- | --- | --- |
-| Planning and architecture | Claude Opus 5.5 | Anthropic | High |
-| Code review | Claude Opus 5.5 | Anthropic | High |
-| UI and design | Claude Opus 5.5 | Anthropic | High |
-| Implementation | GPT-6.2 Sol | OpenAI, via Codex | High |
-| Research and fast exploration | Grok 4.7 | xAI | High |
-| Quick low-effort tasks | Claude Sonnet 5.5 or Claude Haiku 5.5 | Anthropic | Low or medium |
-| Council | Claude Opus 5.5, GPT-6.2 Sol, and Grok 4.7, one delegate each | Anthropic, OpenAI, and xAI | High |
+| Task type | Model | Provider | Fallback | Reasoning effort |
+| --- | --- | --- | --- | --- |
+| Planning and architecture | Claude Opus 5.5 | Anthropic | GPT-6.2 Sol (OpenAI) | High |
+| Code review | Claude Opus 5.5 | Anthropic | GPT-6.2 Sol (OpenAI) | High |
+| UI and design | Claude Opus 5.5 | Anthropic | Gemini 4 Neon (Google) | High |
+| Implementation | GPT-6.2 Sol | OpenAI, via Codex | Claude Opus 5.5 (Anthropic) | High |
+| Research and fast exploration | Grok 4.7 | xAI | Gemini 4 Neon (Google) | High |
+| Quick low-effort tasks | Claude Sonnet 5.5 or Claude Haiku 5.5 | Anthropic | Grok 4.7 Fast (xAI) | Low or medium |
+| Council | Claude Opus 5.5, GPT-6.2 Sol, and Grok 4.7, one delegate each | Anthropic, OpenAI, and xAI | Gemini 4 Neon (Google) replaces one missing member | High |
 
 - Pick the row by the main kind of work in the task, not by the files it touches. A plan that ends in a small edit is planning, a refactor across many files is implementation.
 - Quick low-effort tasks are mechanical and well-specified, for example renaming, reformatting, collecting file lists, or summarizing a log. Use Haiku for the smallest ones and Sonnet when the task needs some judgment.
+- The fallback is a strong model from a different provider, so an outage of one provider never blocks a row. It runs at the same reasoning effort as the primary.
 - The council row is the default panel for a multi-provider review: one strong model from each of three providers, so their blind spots don't overlap.
 - When I name a model, provider, or effort for a task, use mine instead of the table.
 
@@ -70,10 +71,17 @@ Keep the brief specific and short. Use my words for names and decisions, and nev
 
 ## Fallbacks
 
-- Before delegating, check which models and providers the current harness actually offers.
-- If the model or provider from the routing table is not available, tell me which one is missing and what you would use instead, then wait for my answer. Never silently substitute a different model or provider, and never report work as done by a model that didn't do it.
-- If a delegate fails, times out, or returns something unusable, say so with the error. Retry once with a better brief when the cause is clear, otherwise ask me.
+Pick the model by availability, in this order:
+
+1. Before delegating, check which models and providers the current harness actually offers.
+2. Use the row's primary model when it is available.
+3. When the primary model or its provider is not available, use the row's fallback, and tell me in your report which delegate ran on the fallback and why.
+4. When neither the primary nor the fallback is available, tell me which ones are missing, then wait for my answer. Don't pick a third model on your own.
+
+- A model I named for the task has no fallback. If it isn't available, tell me and wait.
+- Never report work as done by a model that didn't do it.
+- If a delegate fails, times out, or returns something unusable, say so with the error. Retry once with a better brief when the cause is clear, otherwise ask me. A provider error or rate limit that persists after the retry counts as unavailable, so move to the fallback.
 
 ## Tools
 
-Use the subagent or delegation tools the current harness provides, whatever they are called, instead of a specific product. Pass the model, provider, and reasoning effort through the harness's own settings for the delegate. When the harness has no way to reach a model from the routing table, that is a missing model, follow the fallback rules.
+Use the subagent or delegation tools the current harness provides, whatever they are called, instead of a specific product. Pass the model, provider, and reasoning effort through the harness's own settings for the delegate. When the harness has no way to reach a model from the routing table, that model is unavailable, so follow the fallback rules.
