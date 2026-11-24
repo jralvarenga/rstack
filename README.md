@@ -52,10 +52,12 @@ codex plugin add rstack@jralvarenga
 
 ### Cursor
 
-Add `jralvarenga/skills` as a team marketplace, then open **Customize**, find **rstack** and select **Install**. For a local clone, link it into Cursor's local plugins and reload the window:
+Add `jralvarenga/skills` as a team marketplace, then open **Customize**, find **rstack** and select **Install**.
+
+To test a local clone, copy it into Cursor's local plugins, then run **Developer: Reload Window**. Cursor skips symlinks that point outside `~/.cursor/plugins/local`, so copy instead of linking, and copy again after every change:
 
 ```bash
-ln -s "$PWD" ~/.cursor/plugins/local/rstack
+rsync -a --delete --exclude .git "$PWD"/ ~/.cursor/plugins/local/rstack/
 ```
 
 ### skills.sh
@@ -87,7 +89,7 @@ Run it again after adding, removing, or renaming a skill.
 
 ### Upgrading from `jralvarenga-skills`
 
-rstack used to be published as `jralvarenga-skills` ("Rigo's Skills"). The skills are the same; only the plugin id changed. Remove the old plugin and install `rstack`:
+rstack used to be published as `jralvarenga-skills` ("Rigo's Skills"). The plugin id changed, so existing installs don't pick up `rstack` on their own. Remove the old plugin and install `rstack`, then check the [Skills](#skills) table for what it includes:
 
 ```bash
 claude plugin uninstall jralvarenga-skills@jralvarenga
@@ -103,7 +105,7 @@ codex plugin marketplace upgrade jralvarenga
 codex plugin add rstack@jralvarenga
 ```
 
-In Cursor, uninstall **Rigo's Skills** and install **rstack**, or point your local link at `~/.cursor/plugins/local/rstack`.
+In Cursor, a team admin first clicks **Refresh** on the marketplace so it lists `rstack`, or re-imports the repository URL when plugins were added one by one. Then uninstall **Rigo's Skills** and install **rstack**. For a local copy, remove `~/.cursor/plugins/local/jralvarenga-skills` and copy the clone to `~/.cursor/plugins/local/rstack` as shown above.
 
 ## Make it yours
 
