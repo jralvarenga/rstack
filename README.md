@@ -17,7 +17,7 @@ It is written for the stack I use most: TypeScript, React, Next.js and TanStack 
 | `agent-file` | Creates and updates `AGENTS.md`, `CLAUDE.md`, and `DESIGN.md` from the codebase. |
 | `issue-management` | Creates and manages issues in Linear, GitHub, or any other tracker. |
 
-Every skill lives in `skills/`. Don't copy them by hand, install rstack with one of the options below.
+Every skill lives in `skills/`. Don't copy them by hand; install rstack with one of the options below.
 
 ## Install
 
@@ -87,7 +87,7 @@ Run it again after adding, removing, or renaming a skill.
 
 ### Upgrading from `jralvarenga-skills`
 
-rstack used to be published as `jralvarenga-skills` ("Rigo's Skills"). The skills are the same, only the plugin id changed. Remove the old plugin and install `rstack`:
+rstack used to be published as `jralvarenga-skills` ("Rigo's Skills"). The skills are the same; only the plugin id changed. Remove the old plugin and install `rstack`:
 
 ```bash
 claude plugin uninstall jralvarenga-skills@jralvarenga
@@ -95,15 +95,23 @@ claude plugin marketplace update jralvarenga
 claude plugin install rstack@jralvarenga
 ```
 
-In Codex, remove `jralvarenga-skills@jralvarenga` and add `rstack@jralvarenga`. In Cursor, uninstall **Rigo's Skills** and install **rstack**, or point your local link at `~/.cursor/plugins/local/rstack`.
+In Codex, refresh the marketplace snapshot first so it can find `rstack`:
+
+```bash
+codex plugin remove jralvarenga-skills@jralvarenga
+codex plugin marketplace upgrade jralvarenga
+codex plugin add rstack@jralvarenga
+```
+
+In Cursor, uninstall **Rigo's Skills** and install **rstack**, or point your local link at `~/.cursor/plugins/local/rstack`.
 
 ## Make it yours
 
-rstack is opinionated on purpose, these are my rules. Fork it, rewrite the skills to match how you work, and rename the stack after yourself.
+rstack is opinionated on purpose; these are my rules. Fork it, rewrite the skills to match how you work, and rename the stack after yourself.
 
 ## External design skill
 
-The `design` skill uses [`frontend-design`](https://github.com/anthropics/skills/tree/main/skills/frontend-design) as inspiration and a fallback when a project doesn't include it. It is not vendored in this repository, install it alongside rstack:
+The `design` skill uses [`frontend-design`](https://github.com/anthropics/skills/tree/main/skills/frontend-design) as inspiration and a fallback when a project doesn't include it. It is not vendored in this repository; install it alongside rstack:
 
 ```bash
 npx skills add anthropics/skills --skill frontend-design --global --agent claude-code --yes
