@@ -1,5 +1,22 @@
 # rstack
 
+## 3.1.0
+
+### Minor Changes
+
+- ad51491: Add triggers, a principles index, autonomy rules, and reply rules to `rstack-mode`, plus `fix-bug` and `watch-pr` playbooks.
+- 0601bf5: Add the testing skill, which owns when and how tests are written, placed, run, and reported, and route every skill and playbook that touches tests to it.
+
+### Patch Changes
+
+- 1d15608: A council runs at the Council row's reasoning effort, medium by default, and a routing row may use the same model as its fallback.
+- 0601bf5: A council starts only when you ask for one. Other skills no longer offer or route into it on their own.
+- 07b9589: issue-management routes any kind of work to the tracker the project uses, instead of splitting product work to Linear and repository work to GitHub, and its examples no longer name a specific app or platform.
+- 0601bf5: Code reviews follow cubic's format: the PR description gets an rstack section, kept apart from the author's text, with the summary, the changes in the PR, and the work needed outside it. The review posts an issue count, issues by file, and a prompt for AI agents covering every unresolved issue, plus inline comments with a confidence score and their own prompt and file context.
+- b5cf61a: Fix conflicts cubic found: testing rules fit non-TypeScript, Convex, and projects without a runner or CI, review prompts fix by issue number, councils trigger only by name, and rstack-mode's triggers cover non-reproducible bugs and tracker-specific states.
+- 5ab6029: Fix the rstack review findings: council rules agree on when fewer providers are allowed, testing allows skipping a confirmed flaky test, and code-review's file counts and "Addressed in" snippet render correctly.
+- a17f084: Tighten rstack-mode and its playbooks: watch-pr asks before pushing to or replying on someone else's PR, fix-bug verifies a written repro, self-review happens before handover, delegates get a path from their own checkout, skill language rules win over the reply language, and the README credits tstack.
+
 ## 3.0.0
 
 ### Major Changes
