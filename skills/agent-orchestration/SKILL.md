@@ -34,7 +34,7 @@ The ideal stack to have in the machine is Claude Code, Codex and Cursor/Grok, ba
 
 - Pick the row for each phase by its main kind of work, not by the files it touches. A plan that ends in a small edit is one planning phase; a refactor across many files is implementation.
 - Quick low-effort tasks are mechanical and well-specified, for example renaming, reformatting, collecting file lists, or summarizing a log. Use Haiku for the smallest ones and Sonnet when the task needs some judgment.
-- The fallback is a model from a different provider at the same tier as the primary, a strong model for the high-effort rows and a fast one for quick tasks, so an outage of one provider never blocks a row. It runs at the same reasoning effort as the primary.
+- The fallback is usually a model from a different provider at the same tier as the primary, a strong model for the high-effort rows and a fast one for quick tasks. A row can use the same model as its fallback when no other provider does that work as well. The fallback runs at the same reasoning effort as the primary.
 - The Council row is the panel for a council I asked for: one strong model from each of three providers, so their blind spots don't overlap. Never start or offer a council from this row on your own.
 - When I name a model, provider, or effort for a task, use mine instead of the table.
 
