@@ -9,10 +9,12 @@ Act on the request. I usually give a one-line ask and expect a filed issue back,
 
 ## Where issues go
 
-- Product work goes to the tracker the product team uses, for example Linear. Pick the team and the project by the area of the work, like frontend, backend, or database, and add a milestone only when one already fits.
-- Work tied to a single repository goes to that repository's issues, for example GitHub Issues.
-- When I mention a platform or a package, like "on iOS", scope the issue to it only.
-- Follow the routing the project or organization already documents when it exists.
+Any kind of work, product, code, design, or ops, goes to the tracker the project uses. Linear, GitHub Issues, Jira, or any other tracker follow the same rules.
+
+- Find the tracker in this order: the tracker I name, the routing the project or organization documents, like in `AGENTS.md`, then the tracker the repository already uses, like an issue key in branch names, PRs, and commits, or open issues on its GitHub repository.
+- When the tracker splits work into teams, projects, or milestones, pick them by the area of the work, like frontend, backend, database, or design. Add a milestone only when one already fits.
+- When the work has no project context and I name no tracker, use the issues of the repository it touches. Ask me only when none of these settle it.
+- When I mention a platform, an app, or a package, scope the issue to it only.
 
 Use the connected integration for the tracker to create and update issues. Never use the browser to file issues, and never say an issue was created or updated without a successful tool response.
 
@@ -37,9 +39,9 @@ If assignment or any field fails, say so instead of reporting success.
 ## Priority guide
 
 - **Urgent:** production is broken, data is lost or leaked, or a security hole is open. Only when I say it or the impact is clear.
-- **High:** hits every user or every launch, or blocks core functionality. For example slow first-open performance or a broken core integration.
+- **High:** hits every user or every session, or blocks core functionality. For example a slow startup or a broken core integration.
 - **Medium:** the default for features, refactors, and normal bugs.
-- **Low:** cosmetic or nice-to-have. For example swapping icons.
+- **Low:** cosmetic or nice-to-have. For example a spacing or icon tweak.
 
 When the priority is not Medium, say why in the report.
 
@@ -50,17 +52,17 @@ Write titles, bodies, comments, and the report in English, even when I ask in an
 ## Title
 
 - Short, specific, and imperative. Describe the outcome.
-- Prefix with the platform when the issue is scoped to one, for example `iOS: ...`.
-- Add the design reference in parentheses when I name one, for example `iOS: date picker (Horizon Calendar style)`.
-- Regressions say what is broken and the fix, for example `iOS: tab bar regressing to one full row (restore separated tabs)`.
-- Follow the naming the repository already uses for similar issues, for example `Add <skill-name> skill: <what it does>` in a skills repository. Use the exact names I give. If I rename something, update the title and every reference in the body right away.
+- Prefix with the platform, app, or package when the issue is scoped to one, for example `<Platform>: <outcome>`.
+- Add the design reference in parentheses when I name one, for example `<Platform>: <component> (<reference> style)`.
+- Regressions say what is broken and the fix, for example `<Area>: <what broke> (<restore what>)`.
+- Follow the naming the tracker or repository already uses for similar issues. Use the exact names I give. If I rename something, update the title and every reference in the body right away.
 
 ## Body
 
-Start with one bold line stating the scope, for example **iOS app only**. Then use these sections, deleting any that don't apply:
+Start with one bold line stating the scope when the issue is scoped to a platform, app, or package, for example **<Platform> only**. Then use these sections, deleting any that don't apply:
 
 ```md
-**iOS app only**
+**<Platform> only**
 
 ## Problem
 
@@ -74,7 +76,7 @@ What is wrong or missing today and why it matters. For bugs, the observed behavi
 
 ## Out of scope
 
-What this issue does not cover, for example web and desktop on an iOS-only issue.
+What this issue does not cover, for example the other platforms on a single-platform issue.
 
 ## Related
 
@@ -85,10 +87,10 @@ Links to issues and PRs this depends on, touches, or could undo.
 One or two verifiable sentences.
 ```
 
-- Keep my intent literally. "Cascade-like delete" of a category means its items get a null category and are not deleted. "Transcribe and send immediately" means there is no edit step before sending.
+- Keep my intent literally. When I say how something behaves, write that behavior exactly instead of a nearby one. "Archive" doesn't become "delete", and "send right away" means no confirm step before sending.
 - Never invent product behavior, design decisions, deadlines, or constraints. Put open questions and unclear details inside the body instead of blocking on them or guessing. A garbled detail from a voice transcription gets flagged as unclear, not turned into a requirement.
 - Link design references when I name them.
-- When the issue asks for a new file or folder, include the exact path, for example `skills/<skill-name>/SKILL.md`.
+- When the issue asks for a new file or folder, include the exact path.
 - Third-party code or content is referenced from its upstream source with attribution, never copied in as my own.
 
 ## Several issues at once
@@ -108,7 +110,7 @@ When I list two or more things, split them into one issue per independently deli
 
 After creating or updating, confirm the fields from the tool response, and fetch the issue if the response is incomplete. Then reply with one short message:
 
-- A link per issue using its identifier, for example `[ENG-99](url)` or `[repo#21](url)`, with the title.
+- A link per issue using the tracker's identifier, for example `[<KEY>-<n>](url)` or `[<repo>#<n>](url)`, with the title.
 - Project, assignee, state, and priority when the tracker has them. Say when a field is unavailable.
 - One sentence on what it covers.
 

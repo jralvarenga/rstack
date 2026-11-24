@@ -50,7 +50,7 @@ packages/
   backend/
 ```
 
-In both layouts, keep a single lockfile at the root, pin the runtime and package-manager versions, and provide root commands for development, build, format, check, type check, and test.
+In both layouts, keep a single lockfile at the root, pin the runtime and package-manager versions, and provide root commands for development, build, format, check, type check, and test, with the test commands described in [testing](../testing/SKILL.md#running-tests).
 
 ## Branching
 
@@ -79,4 +79,4 @@ Set the default target for each type of app:
 
 Deploy web apps to Vercel or Cloudflare, choosing based on the framework and runtime requirements. Deploy Convex through its own deployment per environment, and React Native apps through EAS with a build profile and update channel for each environment. Always provide a production-ready Dockerfile for server apps so they can run outside the default platform, following the infrastructure rules in [backend](../backend/SKILL.md#infrastructure). Web apps still follow the container rules in [frontend](../frontend/SKILL.md#deployment-and-build).
 
-Configure GitHub Actions to run format check, lint, type check, tests, and a production build on every pull request into main and on every promotion. Deploy only from the deployment branches, and only after the checks pass. Run database migrations as an explicit deployment step before the new version receives traffic, and keep migrations backwards compatible with the version currently running. Document how to roll back each environment, and never bypass failed checks to deploy.
+Configure GitHub Actions to run format check, lint, type check, tests following [testing](../testing/SKILL.md#running-tests), and a production build on every pull request into main and on every promotion. Deploy only from the deployment branches, and only after the checks pass. Run database migrations as an explicit deployment step before the new version receives traffic, and keep migrations backwards compatible with the version currently running. Document how to roll back each environment, and never bypass failed checks to deploy.

@@ -9,7 +9,7 @@ These are my rules on how an orchestrating agent splits work between itself and 
 
 Load this skill at the start of every task I give you, before you plan or write anything, even when the task looks small:
 
-1. Classify the work by the task types in the routing table. A task can have several parts, for example planning, then implementation, then review. Split it only into substantial phases; a small step, like a small edit at the end of a plan, stays part of the phase around it.
+1. Classify the work by the task types in the routing table. A task can have several parts, for example planning, then implementation, then review. Split it only into substantial phases; a small step, like a small edit at the end of a plan, stays part of the phase around it. Classify a part as Council only when I asked for a council.
 2. For each part, decide whether you do it yourself or delegate it, following "Do it or delegate it" below.
 3. For each delegated part, pick the model from the routing table and its fallback by availability, then brief the delegate.
 4. Say in one line how you split the work before you start, for example "Doing this myself" or "Planning here, implementation to a delegate".
@@ -20,20 +20,22 @@ When you are a delegate, the brief already made this decision. Do the work yours
 
 This table is the single source of truth for which model handles which work. Other skills, like council and setup-rstack, point here instead of naming models themselves. When models change, update this table only.
 
-| Task type | Model | Provider | Fallback | Reasoning effort |
-| --- | --- | --- | --- | --- |
-| Planning and architecture | Claude Opus 5.5 | Anthropic | GPT-6.2 Sol (OpenAI) | High |
-| Code review | Claude Opus 5.5 | Anthropic | GPT-6.2 Sol (OpenAI) | High |
-| UI and design | Claude Opus 5.5 | Anthropic | Gemini 4 Neon (Google) | High |
-| Implementation | GPT-6.2 Sol | OpenAI, via Codex | Claude Opus 5.5 (Anthropic) | High |
-| Research and fast exploration | Grok 4.7 | xAI | Gemini 4 Neon (Google) | High |
-| Quick low-effort tasks | Claude Sonnet 5.5 or Claude Haiku 5.5 | Anthropic | Grok 4.7 Fast (xAI) | Low or medium |
-| Council | Claude Opus 5.5, GPT-6.2 Sol, and Grok 4.7, one delegate each | Anthropic, OpenAI, and xAI | Gemini 4 Neon (Google) replaces one missing member | High |
+The ideal setup has Claude Code, Codex, and Cursor or Grok installed. Before you delegate, check which models the installed harnesses can reach. Use the row's primary model, then its fallback, following the [fallback rules](#fallbacks). Tell me which harness or model is missing, and never substitute a model the table doesn't list for that row.
+
+| Task type                     | Model                                                         | Provider                   | Fallback                                           | Reasoning effort |
+| ----------------------------- | ------------------------------------------------------------- | -------------------------- | -------------------------------------------------- | ---------------- |
+| Planning and architecture     | Claude Opus 5.5                                               | Anthropic                  | GPT-6.2 Sol                                        | High             |
+| Code review                   | Claude Opus 5.5                                               | Anthropic                  | GPT-6.2 Sol                                        | High             |
+| UI and design                 | Claude Opus 5.5                                               | Anthropic                  | Claude Opus 5.5                                    | Medium           |
+| Implementation                | GPT-6.2 Sol                                                   | OpenAI, via Codex          | Claude Opus 5.5                                    | Medium           |
+| Research and fast exploration | GPT-6.1 Sol                                                   | OpenAI, via Codex          | Grok 4.7                                           | High             |
+| Quick low-effort tasks        | Claude Sonnet 5.5 or Claude Haiku 5.5                         | Anthropic                  | Grok 4.7 Fast (xAI)                                | Low or medium    |
+| Council                       | Claude Opus 5.5, GPT-6.2 Sol, and Grok 4.7, one delegate each | Anthropic, OpenAI, and xAI | Gemini 4 Neon (Google) replaces one missing member | Medium           |
 
 - Pick the row for each phase by its main kind of work, not by the files it touches. A plan that ends in a small edit is one planning phase; a refactor across many files is implementation.
 - Quick low-effort tasks are mechanical and well-specified, for example renaming, reformatting, collecting file lists, or summarizing a log. Use Haiku for the smallest ones and Sonnet when the task needs some judgment.
-- The fallback is a model from a different provider at the same tier as the primary, a strong model for the high-effort rows and a fast one for quick tasks, so an outage of one provider never blocks a row. It runs at the same reasoning effort as the primary.
-- The council row is the default panel for a multi-provider review: one strong model from each of three providers, so their blind spots don't overlap.
+- The fallback is usually a model from a different provider at the same tier as the primary, a strong model for the high-effort rows and a fast one for quick tasks. A row can use the same model as its fallback when no other provider does that work as well. The fallback runs at the same reasoning effort as the primary.
+- The Council row is the panel for a council I asked for: one strong model from each of three providers, so their blind spots don't overlap. Never start or offer a council from this row on your own.
 - When I name a model, provider, or effort for a task, use mine instead of the table.
 
 ## Do it or delegate it
@@ -52,7 +54,7 @@ Delegate when:
 - It splits into independent pieces that can run at the same time.
 - I ask for a delegate, a second opinion, or a specific model.
 
-When I ask for a delegate, a second opinion, or a specific model, that decides it: delegate, even when the work is small. If the model or settings I asked for aren't available, tell me which and wait. Otherwise, when both lists match, do it yourself. A one-file mechanical fix you already have the context for stays with you even though it belongs to the quick-task row.
+When I ask for a delegate, a second opinion, or a specific model, that decides it: delegate, even when the work is small. A second opinion is one delegate on the row for that work. A council starts only when I ask for a council. If the model or settings I asked for aren't available, tell me which and wait. Otherwise, when both lists match, do it yourself. A one-file mechanical fix you already have the context for stays with you even though it belongs to the quick-task row.
 
 Never delegate the decision of what to build, or the final report you give me. You own the plan, you check the results, and you answer for them.
 
@@ -62,7 +64,7 @@ A delegate starts with no history. It has not seen this conversation, the files 
 
 - **Goal:** what to do and why, in one or two sentences, with the issue or PR link when there is one.
 - **Context:** the repository, branch, and files that matter, the decisions already made, and anything you already ruled out so it doesn't redo the work. Point to files and skills by path instead of pasting them.
-- **Success criteria:** what done looks like, and how to verify it, for example the commands to run or the tests that must pass.
+- **Success criteria:** what done looks like, and how to verify it, for example the commands to run or the tests that must pass. When the delegate changes behavior, tell it to load [testing](../testing/SKILL.md) and report the test commands it ran and their results.
 - **Constraints:** what it must not touch, whether it may commit, push, open a PR, or merge, and whether it may start its own delegates. By default delegates do the work themselves and never merge.
 - **Report back:** the exact shape of the answer, for example a short summary, the files changed, open concerns, and the PR URL and head commit. Ask it to say what it could not verify.
 

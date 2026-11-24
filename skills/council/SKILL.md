@@ -1,11 +1,13 @@
 ---
 name: council
-description: Rules on how the agent runs a council, review or feedback rounds by three delegates from different providers at high reasoning effort. Use when I say "council", or ask for a multi-provider review, feedback round, or second opinions on a plan, design, change, or PR. Keep feedback read-only and drive fixes to completion when I authorize them.
+description: Rules on how the agent runs a council, review or feedback rounds by three delegates from different providers at medium reasoning effort. Use only when I say "council" or ask for a council by name on a plan, design, change, or PR. A second opinion or named reviewers go through agent-orchestration, not a council. Keep feedback read-only and drive fixes to completion when I authorize them.
 ---
 
-These are my rules on how to run a council. Three strong models from different providers review the same work and disagree in the open. Use organization and project rules as the base and apply these rules as long as they do not conflict with them.
+These are my rules on how to run a council. Three strong models from different providers, or with my OK fewer providers when the available stack can't reach three, review the same work and disagree in the open. Use organization and project rules as the base and apply these rules as long as they do not conflict with them.
 
 When I say "council", run this flow on the work in front of us, a PR, a branch, a plan, or a design. Pick the model, brief, and tools for every member following [agent-orchestration](../agent-orchestration/SKILL.md).
+
+A council runs only when I ask for one, never on your own.
 
 ## When to make changes
 
@@ -21,7 +23,7 @@ For a PR or branch, also:
 
 - Address every open comment on the PR, fix it or reply with why not.
 - Fix failing CI.
-- Run the project's checks, like the formatter, linter, type checker, tests, and build, and make them pass.
+- Run the project's checks, like the formatter, linter, type checker, tests, and build, and make them pass. Add or fix tests following [testing](../testing/SKILL.md).
 - Commit and push, so every member reviews the same head commit.
 
 For a plan or design, there are no checks, commit, or push. Instead:
@@ -32,16 +34,16 @@ If something can't be fixed first, say what it is and put it in every brief, so 
 
 ## Members
 
-- When I name the members, use exactly those, as long as they are three members from three different providers. When they aren't, tell me what's wrong with the panel and wait for a valid one.
+- When I name the members, use exactly those, as long as they are three members from three different providers. When they aren't, tell me what's wrong with the panel and wait for a valid one or my OK to run it as named.
 - Otherwise use the members from the "Council" row of the routing table in [agent-orchestration](../agent-orchestration/SKILL.md#routing-table). Don't pick models yourself and don't keep your own list.
-- A council has three members, one per provider, each at high reasoning effort. Two members from the same provider is not a council.
+- A council has three members, one per provider, each at the reasoning effort of the Council row in the [routing table](../agent-orchestration/SKILL.md#routing-table), medium by default. Two members from the same provider is not a full council. Use one only when I OK it after you tell me which providers are missing.
 - You are the chair, not a member. You brief, collect, summarize, and fix, but your opinion never counts as a member's.
 
 ## Missing members
 
 Before every round, check that the harness can reach every member. Follow the [fallback rules](../agent-orchestration/SKILL.md#fallbacks) when a member is unavailable or fails during the round.
 
-- When a default member isn't available, use the council fallback from the routing table in [agent-orchestration](../agent-orchestration/SKILL.md#routing-table), and tell me which member it replaced. The council still needs three different providers.
+- When a default member isn't available, use the council fallback from the routing table in [agent-orchestration](../agent-orchestration/SKILL.md#routing-table), and tell me which member it replaced. The council still needs three different providers unless I OK fewer, as described in [Members](#members).
 - When more members are missing than the fallback covers, or a member I named isn't available, tell me which ones are missing, then wait for my answer.
 - Never pick a replacement outside the routing table, never run with fewer members without my OK, and never report a council that didn't happen.
 
@@ -72,6 +74,7 @@ After each round, tell me:
 - **Disagreements:** where members contradict each other, what each said, and what you recommend.
 - **Next steps** cover what you recommend fixing or declining, why, and what needs my decision.
 - **Scores:** each member's score for the round.
+- **Prompt for AI agents:** for a code review with findings, the summary body from [code-review](../code-review/SKILL.md#summary-body), with its prompt covering every finding you recommend fixing.
 
 ## Rounds
 

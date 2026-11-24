@@ -12,6 +12,7 @@ It is written for the stack I use most: TypeScript, React, Next.js and TanStack 
 | `rstack-help` | Explains what rstack is, which skill does what, and which skill or playbook fits a common ask. |
 | `setup-rstack` | Sets up rstack in a project by writing a marked section with the model routing into its `AGENTS.md`. |
 | `code-guidelines` | How the agent writes and formats code. |
+| `testing` | When and how the agent writes, places, runs, and reports tests. |
 | `design` | How the agent designs the frontend. |
 | `frontend` | How the agent plans the frontend app, components, pages, and features. |
 | `backend` | How the agent plans APIs, databases, validation, and infrastructure. |
@@ -20,9 +21,9 @@ It is written for the stack I use most: TypeScript, React, Next.js and TanStack 
 | `agent-file` | Creates and updates `AGENTS.md`, `CLAUDE.md`, and `DESIGN.md` from the codebase. |
 | `issue-management` | Creates and manages issues in Linear, GitHub, or any other tracker. |
 | `agent-orchestration` | Loads at the start of every task: decides what to do yourself or delegate, picks the model and provider for each part, and briefs the delegates. See [Every task](#every-task). |
-| `council` | Runs review or feedback rounds on a PR, plan, or design with three models from three providers, until all of them are satisfied. |
+| `council` | Runs a council only when you ask: review or feedback rounds on a PR, plan, or design with three models from three providers, until all of them are satisfied. |
 
-Start with `rstack-mode`. Its playbooks in `skills/rstack-mode/playbooks/` walk through filing an issue, implementing it, reviewing a PR, starting an app or feature, and running delegates in parallel.
+Start with `rstack-mode`. Its playbooks in `skills/rstack-mode/playbooks/` walk through filing an issue, implementing it, fixing a bug, reviewing a PR, watching a PR until it's ready, starting an app or feature, and running delegates in parallel.
 
 Run `setup-rstack` once in each project. It adds an rstack section to the project's `AGENTS.md` that says to start from `rstack-mode` and lists the model and reasoning effort for each kind of work, generated from the routing table in `agent-orchestration`. Run it again to refresh the section after that table changes. Ask `rstack-help` when you're not sure which skill to use.
 
@@ -133,6 +134,13 @@ In Cursor, a team admin first clicks **Refresh** on the marketplace so it lists 
 ## Make it yours
 
 rstack is opinionated on purpose; these are my rules. Fork it, rewrite the skills to match how you work, and rename the stack after yourself.
+
+## Credits
+
+rstack borrows ideas from other people's agent stacks:
+
+- [pstack](https://github.com/cursor/plugins/tree/main/pstack) by poteto, the model for `rstack-mode`'s triggers, principles, autonomy rules, reply rules, and playbooks.
+- [tstack](https://github.com/t3dotgg/tstack) by Theo (t3dotgg), the model for `council` and the `watch-pr` playbook.
 
 ## External skills
 
