@@ -13,7 +13,7 @@ rstack is my personal stack: a collection of agent skills with the rules I want 
 
 1. Install it. The Install section of the [README](https://github.com/jralvarenga/skills#install) has the command for each agent. In Claude Code the skills are then available as `/rstack:<skill>`.
 2. Start every task from [rstack-mode](../rstack-mode/SKILL.md). It holds the core rules, picks the skills each task needs, and has playbooks for the workflows I repeat.
-3. Run [setup-rstack](../setup-rstack/SKILL.md) once in each project. It adds an rstack section to the project's `AGENTS.md` with the model routing for that project.
+3. Run [setup-rstack](../setup-rstack/SKILL.md) once in each project, and again after the routing table in [agent-orchestration](../agent-orchestration/SKILL.md) changes. It adds an rstack section to the project's `AGENTS.md` with the model routing for that project.
 4. Say "council" when you want a review from several models at once.
 
 ## Skills
@@ -44,7 +44,7 @@ When a skill in this list isn't installed, say so instead of describing it as av
 | "File an issue for this" | The [file-issue](../rstack-mode/playbooks/file-issue.md) playbook |
 | "Review this PR" | The [review-pr](../rstack-mode/playbooks/review-pr.md) playbook |
 | "council" | council |
-| "Start a new app" or "add a feature" | The [new-app-or-feature](../rstack-mode/playbooks/new-app-or-feature.md) playbook |
+| "Start a new app" or "plan a big feature" | The [new-app-or-feature](../rstack-mode/playbooks/new-app-or-feature.md) playbook |
 | "Do these in parallel" | The [parallel-work](../rstack-mode/playbooks/parallel-work.md) playbook |
 | "Write the AGENTS.md" | agent-file |
 | "Which model should do this?" | agent-orchestration |
