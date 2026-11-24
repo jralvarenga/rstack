@@ -17,3 +17,21 @@ The skills are written primarily for:
 Apply portable rules to other languages and stacks when relevant.
 
 Run `scripts/link-skills.sh` after adding, removing, or renaming a skill.
+
+## Versioning
+
+Every change that lands on `main` bumps the version. Add a changeset in the same pull request, by running `bun run changeset` or by writing `.changeset/<short-name>.md` directly:
+
+```md
+---
+"rstack": patch
+---
+
+One sentence on what changed, for the changelog.
+```
+
+- `patch`: fixes, wording, and docs.
+- `minor`: a new skill, playbook, or feature.
+- `major`: a breaking change, like renaming the plugin id or a skill.
+
+Never edit `version` fields or `CHANGELOG.md` by hand. After the merge, the release workflow opens the `chore: version skills` pull request. That PR bumps `package.json`, `CHANGELOG.md`, and every plugin manifest through `scripts/sync-plugin-versions.ts`.
