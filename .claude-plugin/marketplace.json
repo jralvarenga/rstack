@@ -10,7 +10,7 @@
       "name": "rstack",
       "displayName": "rstack",
       "source": "./",
-      "description": "rstack is my personal stack: the rules I want every agent to follow when it writes, designs, reviews, and ships code with me. It covers code guidelines, frontend design, code review, app architecture, backend, agent files, and issue management.",
+      "description": "rstack is my personal stack: the rules I want every agent to follow when it writes, designs, reviews, and ships code with me. It covers code guidelines, frontend design, code review, app architecture, backend, agent files, issue management, and agent orchestration.",
       "category": "engineering",
       "keywords": [
         "engineering",
@@ -23,7 +23,8 @@
         "code-review",
         "backend",
         "agent-file",
-        "issue-management"
+        "issue-management",
+        "agent-orchestration"
       ]
     }
   ]

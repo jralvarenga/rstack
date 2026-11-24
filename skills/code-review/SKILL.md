@@ -126,6 +126,8 @@ The prompt lists every issue in the review, not only "Most important", ordered b
 
 Tell the agent the PR number or URL and the branch name. Tell it to fix issues in severity order, push one commit (or as few as reasonable), and not merge.
 
+When you delegate the review or the fixes to another agent, pick its model and write its brief following [agent-orchestration](../agent-orchestration/SKILL.md).
+
 When the review found zero issues, omit this section. Do not include an empty prompt.
 
 ## Inline comments

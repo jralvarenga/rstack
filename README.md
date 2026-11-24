@@ -16,6 +16,7 @@ It is written for the stack I use most: TypeScript, React, Next.js and TanStack 
 | `code-review` | Reviews a pull request against project rules and my code guidelines. |
 | `agent-file` | Creates and updates `AGENTS.md`, `CLAUDE.md`, and `DESIGN.md` from the codebase. |
 | `issue-management` | Creates and manages issues in Linear, GitHub, or any other tracker. |
+| `agent-orchestration` | Picks the model and provider for each kind of work and briefs the delegates. |
 
 Every skill lives in `skills/`. Don't copy them by hand; install rstack with one of the options below.
 
