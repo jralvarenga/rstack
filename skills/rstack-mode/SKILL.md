@@ -10,6 +10,7 @@ These are my rules on how an agent works with rstack. This skill doesn't replace
 These apply to every task, whatever skills it loads:
 
 - Read the project's `AGENTS.md` and `CLAUDE.md` before starting, and its `DESIGN.md` when it has one. Project and organization rules come first, rstack fills in everything they don't cover.
+- Load [agent-orchestration](../agent-orchestration/SKILL.md) at the start of every task, before planning, to decide what you do yourself and what you delegate.
 - Load [code-guidelines](../code-guidelines/SKILL.md) for every task that writes or changes code, in any language.
 - Load [design](../design/SKILL.md) for any work that changes how something looks.
 - Load every skill the task needs before you start, not halfway through. A task often needs more than one.
@@ -23,7 +24,7 @@ These apply to every task, whatever skills it loads:
 | Skill | Use when |
 | --- | --- |
 | [agent-file](../agent-file/SKILL.md) | Writing or refreshing `AGENTS.md`, `CLAUDE.md`, or `DESIGN.md`, or after a change makes them stale. |
-| [agent-orchestration](../agent-orchestration/SKILL.md) | Delegating work, picking a model or provider, briefing delegates, or running them in parallel. |
+| [agent-orchestration](../agent-orchestration/SKILL.md) | Every task, at the start: what to do yourself or delegate, which model handles each part, briefing delegates, and running them in parallel. |
 | [app-architecture](../app-architecture/SKILL.md) | Creating an app, adding a package or service, setting up branches, environments, CI/CD, deployments, or auth. |
 | [backend](../backend/SKILL.md) | Designing or changing an API, a database schema or query, a server, a background job, or a service's Docker setup. |
 | [code-guidelines](../code-guidelines/SKILL.md) | Writing or formatting any code. Always on for coding tasks. |
@@ -51,7 +52,7 @@ Match the ask to every row that fits and load all of the skills in them:
 | Filing or updating issues | issue-management |
 | Reviewing a PR, branch, or diff | code-review |
 | "council", or a review by several models | council |
-| Delegating, subagents, parallel work, or which model to use | agent-orchestration |
+| Every task, and any delegating, subagents, parallel work, or model choice | agent-orchestration |
 | How rstack works | rstack-help |
 | Installing or configuring rstack | setup-rstack |
 
