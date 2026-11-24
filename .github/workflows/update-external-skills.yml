@@ -1,0 +1,49 @@
+name: Update external skills
+
+on:
+  schedule:
+    - cron: "23 9 * * 1"
+  workflow_dispatch:
+
+concurrency: update-external-skills
+
+jobs:
+  update:
+    name: Check and propose external skill updates
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          ref: main
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
+
+      - name: Check upstream pins
+        id: updates
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          bun scripts/update-external-skills.ts
+          if ! git diff --quiet -- external-skills.json; then
+            echo "available=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Open or update the pull request
+        if: steps.updates.outputs.available == 'true'
+        uses: peter-evans/create-pull-request@c0f553fe549906ede9cf27b5156039d195d2ece0 # v8.1.0
+        with:
+          base: main
+          branch: chore/update-external-skills
+          delete-branch: true
+          add-paths: |
+            external-skills.json
+            .changeset/update-external-skills-*.md
+          commit-message: "chore: update external skill pins"
+          title: Update external skill pins
+          body-path: .cache/external-skills-pr.md
