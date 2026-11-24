@@ -1,8 +1,7 @@
 ---
-
-## name: agent-orchestration
-
+name: agent-orchestration
 description: Rules on how the agent handles every task I give it, deciding whether to do the work itself or delegate it, which model and provider handles each kind of work, how to brief a delegate, and how to run delegates in parallel or in isolation. Use at the start of every task, before planning or writing anything, and whenever orchestrating subagents or picking a model.
+---
 
 These are my rules on how an orchestrating agent splits work between itself and its delegates. The goal is that every kind of work goes to the model that does it best, each delegate gets a brief it can act on without asking, and when a model is unavailable the work moves to a known fallback instead of an improvised one. Use organization and project rules as the base and apply these rules as long as they do not conflict with them.
 
