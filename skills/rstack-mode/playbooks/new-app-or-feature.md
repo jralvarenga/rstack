@@ -15,4 +15,4 @@ Use when I ask to start a new app, package, or service, or a feature big enough 
 
 ## Done when
 
-The plan covers architecture and each of backend, frontend, and design that the work needs, the agent files record the decisions, and every piece of the work is either in an open pull request or filed as an issue.
+The plan covers architecture and each of backend, frontend, and design that the work needs, and the agent files record the decisions. When I asked only for a plan, every piece is filed as an issue or listed in the plan. When I asked to build it, every piece is in an open pull request.

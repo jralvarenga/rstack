@@ -9,13 +9,13 @@ These are my rules on how an agent works with rstack. This skill doesn't replace
 
 These apply to every task, whatever skills it loads:
 
-- Read the project's `AGENTS.md` and `CLAUDE.md` before starting, and its `DESIGN.md` when it has one. Project and organization rules come first, rstack fills in everything they don't cover.
+- Read the project's `AGENTS.md`, `CLAUDE.md`, and `DESIGN.md` before starting, the ones that exist. Project and organization rules come first; rstack fills in everything they don't cover. When the agent files are missing and the task needs them, load [agent-file](../agent-file/SKILL.md) first.
 - Load [agent-orchestration](../agent-orchestration/SKILL.md) at the start of every task, before planning, to decide what you do yourself and what you delegate.
 - Load [code-guidelines](../code-guidelines/SKILL.md) for every task that writes or changes code, in any language.
 - Load [design](../design/SKILL.md) for any work that changes how something looks.
 - Load every skill the task needs before you start, not halfway through. A task often needs more than one.
 - Act on the request. Ask only when the answer would change the result, and then ask one focused question.
-- Never commit to `main`. Work on a branch named after the issue, as described in [app-architecture](../app-architecture/SKILL.md#branching).
+- Never commit to `main`. When the task edits or commits files, work on the existing PR branch, or on a new branch named after the issue, or after the task when there is no issue, as described in [app-architecture](../app-architecture/SKILL.md#branching). Read-only tasks, like filing issues or reviewing, need no branch.
 - Never invent requirements, product behavior, labels, or results. Check the diff, the tests, or the tool response before saying something is done, and say what you couldn't verify.
 - Open pull requests when the task calls for it, but merge only when I ask.
 
