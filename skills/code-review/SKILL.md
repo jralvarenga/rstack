@@ -67,9 +67,7 @@ Do not pad the review. Zero issues is a valid result.
 
 ## Review output
 
-The review posts in the same shape cubic uses: one `COMMENT` review whose body is a short count and a prompt for AI agents covering every unresolved issue, with one inline comment per issue attached to it. Each inline comment carries its own prompt. Keep the wording, tags, and whitespace of the templates below exactly, and fill in only the `{placeholders}`. Use the `rstack` markers, never cubic's markers, links, or branding.
-
-Before posting anything, give me the overview in the reply instead of the review body: what the PR does, whether it matches its description and issue, the merge risk, the files reviewed and skipped, and the rules used.
+The review posts as one `COMMENT` review with one inline comment per issue attached to it. The summary body starts with cubic's issue count, then describes the PR for a reader: what it changes, what still has to happen outside it, and the issues by file and severity. It ends with cubic's prompt for AI agents covering every unresolved issue, and each inline comment carries its own prompt. Keep the wording, tags, and whitespace of the templates below exactly, and fill in only the `{placeholders}`. Use the `rstack` markers, never cubic's markers, links, or branding.
 
 ### Confidence
 
@@ -81,6 +79,35 @@ Score every issue from 1 to 10 for how sure you are that it's real, after readin
 <!-- rstack:review-summary:start -->
 **{N} issues found** across {F} files
 <!-- rstack:review-summary:end -->
+
+🔴 {X} critical · 🟠 {X} high · 🟡 {X} medium · 🔵 {X} low
+
+### Overview
+{2–4 sentences: what the PR does, whether it does what its description and linked issue say, and the overall risk of merging it.}
+
+### Changes in this PR
+- {One bullet per area of change, about behavior, with `code` names and the files or skills it touches.}
+
+### Needed outside this PR
+- {Work this PR depends on or leaves for after it that isn't in its diff: issues to close or file, settings, secrets, migrations or data to run, other repos, docs, approvals, and follow-up PRs. Write "Nothing" when there is none.}
+
+### Issues by file
+| File | 🔴 | 🟠 | 🟡 | 🔵 |
+|---|---|---|---|---|
+| `{path}` | {n} | {n} | {n} | {n} |
+
+### Most important
+1. {severity emoji} {Short title} — `{path}:{line}`
+
+### Guidelines used
+{Base guidelines, overridden by: the project files and the topics they cover.}
+
+<details><summary>Files reviewed ({N}) / skipped ({N})</summary>
+
+Reviewed: {paths}
+Skipped: {paths and why, or "None"}
+
+</details>
 
 <details>
 <summary>Prompt for AI agents (unresolved issues)</summary>
@@ -111,9 +138,11 @@ Check if these issues are valid — if so, understand the root cause of each and
 <!-- rstack:review-post:{full head sha} -->
 ````
 
-- `{N}` counts the inline comments, and `{F}` counts the files reviewed. Write `**1 issue found**` for one issue. With zero issues, the body is `**No issues found** across {F} files` between the markers, with no `<details>` block.
-- The prompt lists every issue in the review, one `<violation>` per inline comment, with the same text the comment has. Number violations per file starting at 1 and sort them by line inside the file.
-- Keep the exact whitespace: one blank line after the opening fence, two after the instruction, one after each `<file name>` line and between violations. `</violation>` closes on the text's line, and `</file>` follows the last violation with no blank line.
+- `{N}` counts the issues, and `{F}` counts the files reviewed. Write `**1 issue found**` for one issue. With zero issues, write `**No issues found** across {F} files` and drop the severity line, "Issues by file", "Most important", and the prompt. Keep the rest.
+- "Changes in this PR" describes the diff as it is, not the issues. "Needed outside this PR" is only for work outside the diff. Base both on what you read, like the description, the linked issue, the changesets, and config the code expects, and mark a guess as inferred.
+- "Most important" lists the P0 and P1 issues, or the top three when there are none.
+- The prompt lists every issue in the review, with the same text its inline comment has. Number violations per file starting at 1 and sort them by line inside the file.
+- Keep the prompt's exact whitespace: one blank line after the opening fence, two after the instruction, one after each `<file name>` line and between violations, and one between `</file>` and the next `<file>`. `</violation>` closes on the text's line, and `</file>` follows the last violation with no blank line.
 - There is no PR, branch, or commit header in the prompt. The agent runs it on the branch it already has.
 - When the target has no PR, like a branch or a local diff, give me the same summary body in the reply.
 
@@ -210,7 +239,7 @@ When the PR is mine, or I confirm it for someone else's PR, append this section 
 
 ## Posting the review
 
-Show me the overview, the summary body, and the inline comments first. Post only after I confirm. Post the summary and every inline comment as one review. The prompts are part of the summary body and of each inline comment, never separate comments.
+Show me the summary body and the inline comments first. Post only after I confirm. Post the summary and every inline comment as one review. The prompts are part of the summary body and of each inline comment, never separate comments.
 
 Build the payload in a file, then post it:
 
@@ -239,7 +268,7 @@ If the API rejects a comment because its line isn't in the diff, move it to the 
 When I ask you to recheck a review you posted, or to re-review after new commits:
 
 - For each issue fixed by a new commit, edit its inline comment to append `\n\n✅ Addressed in [`{sha7}`]({commit url})` and leave the rest of the comment as it is.
-- Rewrite the summary body: lower the count, and drop the violations that were fixed or whose threads were resolved. When none are left, the body becomes `**All reported issues were addressed** across {F} files` between the markers, with no `<details>` block. Update the commit in the `review-post` marker.
+- Rewrite the summary body: lower the counts and the tables, and drop the violations that were fixed or whose threads were resolved. Update "Changes in this PR" and "Needed outside this PR" for the new commits. When none are left, the count line becomes `**All reported issues were addressed** across {F} files`, and the severity line, the issue sections, and the prompt are dropped. Update the commit in the `review-post` marker.
 - Don't reply in the threads or resolve them for the author. Don't comment again on issues that were fixed or resolved as won't fix.
 - A re-review covers the whole PR at its new head. Post new issues as a new review in the same format.
 
