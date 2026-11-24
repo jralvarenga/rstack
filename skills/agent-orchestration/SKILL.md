@@ -1,9 +1,20 @@
 ---
 name: agent-orchestration
-description: Rules on which model and provider the agent should delegate each kind of work to, when to delegate instead of doing the work itself, how to brief a delegate, and how to run delegates in parallel or in isolation. Use when orchestrating subagents, delegating planning, implementation, review, research, or design work, or picking a model for a task.
+description: Rules on how the agent handles every task I give it, deciding whether to do the work itself or delegate it, which model and provider handles each kind of work, how to brief a delegate, and how to run delegates in parallel or in isolation. Use at the start of every task, before planning or writing anything, and whenever orchestrating subagents or picking a model.
 ---
 
 These are my rules on how an orchestrating agent splits work between itself and its delegates. The goal is that every kind of work goes to the model that does it best, each delegate gets a brief it can act on without asking, and when a model is unavailable the work moves to a known fallback instead of an improvised one. Use organization and project rules as the base and apply these rules as long as they do not conflict with them.
+
+## Every task
+
+Load this skill at the start of every task I give you, before you plan or write anything, even when the task looks small:
+
+1. Classify the work by the task types in the routing table. A task can have several parts, for example planning, then implementation, then review.
+2. For each part, decide whether you do it yourself or delegate it, following "Do it or delegate it" below.
+3. For each delegated part, pick the model from the routing table and its fallback by availability, then brief the delegate.
+4. Say in one line how you split the work before you start, for example "Doing this myself" or "Planning here, implementation to a delegate".
+
+When you are a delegate, the brief already made this decision. Do the work yourself and don't delegate again unless the brief allows it.
 
 ## Routing table
 

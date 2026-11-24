@@ -34,5 +34,6 @@
     "issue-management",
     "agent-orchestration"
   ],
-  "skills": "./skills/"
+  "skills": "./skills/",
+  "rules": "./rules/"
 }

@@ -1,0 +1,14 @@
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo 'rstack: before you plan or write anything for this task, load the agent-orchestration skill to decide whether to do each part yourself or delegate it, and which model handles it. When you are a delegate, follow your brief instead.'"
+          }
+        ]
+      }
+    ]
+  }
+}
