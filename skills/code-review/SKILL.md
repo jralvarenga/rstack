@@ -67,7 +67,7 @@ Do not pad the review. Zero issues is a valid result.
 
 ## Review output
 
-The review posts as one `COMMENT` review with one inline comment per issue attached to it. The summary body starts with cubic's issue count, then describes the PR for a reader: what it changes, what still has to happen outside it, and the issues by file and severity. It ends with cubic's prompt for AI agents covering every unresolved issue, and each inline comment carries its own prompt. Keep the wording, tags, and whitespace of the templates below exactly, and fill in only the `{placeholders}`. Use the `rstack` markers, never cubic's markers, links, or branding.
+The review has two parts, like cubic. The description of the PR, meaning what it does, what it changes, and what still has to happen outside it, goes in the PR description, in an rstack section kept apart from the author's text. The review itself posts as one `COMMENT` review with one inline comment per issue. Its summary body starts with cubic's issue count, lists the issues by file and severity, and ends with cubic's prompt for AI agents covering every unresolved issue. Each inline comment carries its own prompt. Keep the wording, tags, and whitespace of the templates below exactly, and fill in only the `{placeholders}`. Use the `rstack` markers, never cubic's markers, links, or branding.
 
 ### Confidence
 
@@ -81,15 +81,6 @@ Score every issue from 1 to 10 for how sure you are that it's real, after readin
 <!-- rstack:review-summary:end -->
 
 🔴 {X} critical · 🟠 {X} high · 🟡 {X} medium · 🔵 {X} low
-
-### Overview
-{2–4 sentences: what the PR does, whether it does what its description and linked issue say, and the overall risk of merging it.}
-
-### Changes in this PR
-- {One bullet per area of change, about behavior, with `code` names and the files or skills it touches.}
-
-### Needed outside this PR
-- {Work this PR depends on or leaves for after it that isn't in its diff: issues to close or file, settings, secrets, migrations or data to run, other repos, docs, approvals, and follow-up PRs. Write "Nothing" when there is none.}
 
 ### Issues by file
 | File | 🔴 | 🟠 | 🟡 | 🔵 |
@@ -139,12 +130,12 @@ Check if these issues are valid — if so, understand the root cause of each and
 ````
 
 - `{N}` counts the issues, and `{F}` counts the files reviewed. Write `**1 issue found**` for one issue. With zero issues, write `**No issues found** across {F} files` and drop the severity line, "Issues by file", "Most important", and the prompt. Keep the rest.
-- "Changes in this PR" describes the diff as it is, not the issues. "Needed outside this PR" is only for work outside the diff. Base both on what you read, like the description, the linked issue, the changesets, and config the code expects, and mark a guess as inferred.
+- The summary body is only about the review. What the PR does and changes goes in the [PR description](#pr-description-summary), never in the review.
 - "Most important" lists the P0 and P1 issues, or the top three when there are none.
 - The prompt lists every issue in the review, with the same text its inline comment has. Number violations per file starting at 1 and sort them by line inside the file.
 - Keep the prompt's exact whitespace: one blank line after the opening fence, two after the instruction, one after each `<file name>` line and between violations, and one between `</file>` and the next `<file>`. `</violation>` closes on the text's line, and `</file>` follows the last violation with no blank line.
 - There is no PR, branch, or commit header in the prompt. The agent runs it on the branch it already has.
-- When the target has no PR, like a branch or a local diff, give me the same summary body in the reply.
+- When the target has no PR, like a branch or a local diff, give me the PR description section and the summary body in the reply.
 
 ### Inline comments
 
@@ -222,24 +213,33 @@ When you delegate the review or the fixes to another agent, pick its model and w
 
 ### PR description summary
 
-When the PR is mine, or I confirm it for someone else's PR, append this section to the PR description after a blank line, or replace it when it's already there. Leave the rest of the description as it is:
+The description of the PR lives in the PR description, in a section rstack owns. Add it after the author's description, separated by its markers and a rule, the way cubic adds "Summary by cubic". Never change the author's text, and never move rstack's text into it. When the section is already there, replace only what's between the markers. Other tools' sections, like cubic's, stay as they are.
 
 ```markdown
+{the author's description, unchanged}
+
 <!-- This is an auto-generated description by rstack. -->
 ---
 ## Summary by rstack
-{One paragraph: what the PR does and why, with `code` names.}
+{2–4 sentences: what the PR does and why, whether it does what its description and linked issue say, and the overall risk of merging it, with `code` names.}
 
-- {One bullet per area of change, about behavior.}
+### Changes in this PR
+- {One bullet per area of change, about behavior, with `code` names and the files or skills it touches.}
 
-<sup>Written for commit {full head sha}. Summary will update on new commits.</sup>
+### Needed outside this PR
+- {Work this PR depends on or leaves for after it that isn't in its diff: issues to close or file, settings, secrets, migrations or data to run, other repos, docs, approvals, and follow-up PRs. Write "Nothing" when there is none.}
+
+<sup>Written for commit {full head sha}. Updated on every rstack review of this PR.</sup>
 
 <!-- End of auto-generated description by rstack. -->
 ```
 
+- "Changes in this PR" describes the diff as it is, not the review's issues. "Needed outside this PR" is only for work outside the diff. Base both on what you read, like the description, the linked issue, the changesets, and config the code expects, and mark a guess as inferred.
+- When the PR is mine, write the section with the review. On someone else's PR, show it to me with the review and write it only after I confirm.
+
 ## Posting the review
 
-Show me the summary body and the inline comments first. Post only after I confirm. Post the summary and every inline comment as one review. The prompts are part of the summary body and of each inline comment, never separate comments.
+Show me the PR description section, the summary body, and the inline comments first. Post only after I confirm. Post the summary and every inline comment as one review, and write the PR description section in the same step. The prompts are part of the summary body and of each inline comment, never separate comments.
 
 Build the payload in a file, then post it:
 
@@ -268,11 +268,13 @@ If the API rejects a comment because its line isn't in the diff, move it to the 
 When I ask you to recheck a review you posted, or to re-review after new commits:
 
 - For each issue fixed by a new commit, edit its inline comment to append `\n\n✅ Addressed in [`{sha7}`]({commit url})` and leave the rest of the comment as it is.
-- Rewrite the summary body: lower the counts and the tables, and drop the violations that were fixed or whose threads were resolved. Update "Changes in this PR" and "Needed outside this PR" for the new commits. When none are left, the count line becomes `**All reported issues were addressed** across {F} files`, and the severity line, the issue sections, and the prompt are dropped. Update the commit in the `review-post` marker.
+- Rewrite the summary body: lower the counts and the tables, and drop the violations that were fixed or whose threads were resolved. When none are left, the count line becomes `**All reported issues were addressed** across {F} files`, and the severity line, the issue sections, and the prompt are dropped. Update the commit in the `review-post` marker.
+- Rewrite the rstack section of the PR description for the new head: its summary, "Changes in this PR", "Needed outside this PR", and the commit.
 - Don't reply in the threads or resolve them for the author. Don't comment again on issues that were fixed or resolved as won't fix.
 - A re-review covers the whole PR at its new head. Post new issues as a new review in the same format.
 
 ```bash
 gh api repos/{owner}/{repo}/pulls/comments/{comment id} --method PATCH -f body="{edited inline comment}"
 gh api repos/{owner}/{repo}/pulls/{n}/reviews/{review id} --method PUT -f body="{rewritten summary body}"
+gh pr edit {n} --body-file {description with the rewritten rstack section}
 ```

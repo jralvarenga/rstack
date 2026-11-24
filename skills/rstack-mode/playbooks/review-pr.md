@@ -9,7 +9,7 @@ Use when I ask to review a pull request, a branch, or a diff.
 3. Load [code-review](../../code-review/SKILL.md). It reads [code-guidelines](../../code-guidelines/SKILL.md) as the base of the review and [testing](../../testing/SKILL.md) to judge the tests.
 4. Read the PR description and any linked issue only when the selected target has a PR. Review every changed file in the selected target against the project rules and the checklist.
 5. Score every issue's severity and confidence, keep the ones at confidence 7 or higher, and write the summary body and the inline comments in the cubic format from [code-review](../../code-review/SKILL.md#review-output), each with its prompt for AI agents.
-6. Show me the summary body and the inline comments. Post them as one review only when the selected target has a PR and I confirm. When there's no PR, the summary body with its prompt is the report.
+6. Show me the PR description section, the summary body, and the inline comments. Only when the selected target has a PR and I confirm, post them as one review and write the rstack section of the PR description below the author's text. When there's no PR, the description section and the summary body with its prompt are the report.
 7. When I ask for a recheck after fixes, update the posted review as [code-review](../../code-review/SKILL.md#after-fixes-land) describes.
 8. When I ask for fixes, apply them on the selected PR's head branch or the branch for the selected diff, following code-guidelines. If the diff has no known branch, confirm where the fixes belong. Follow [agent-orchestration](../../agent-orchestration/SKILL.md) if you delegate the fixes. Push them when the selected target has a PR.
 
