@@ -13,7 +13,7 @@
   "description": "rstack, Rigo's personal stack of agent skills",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jralvarenga/skills"
+    "url": "https://github.com/jralvarenga/rstack"
   },
   "devDependencies": {
     "@changesets/cli": "2.29.8"

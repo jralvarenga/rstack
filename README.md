@@ -57,26 +57,26 @@ rstack is a plugin for every supported agent. Each agent reads its own manifest,
 ### Claude Code
 
 ```bash
-claude plugin marketplace add jralvarenga/skills
+claude plugin marketplace add jralvarenga/rstack
 claude plugin install rstack@jralvarenga
 ```
 
-Or inside a session: `/plugin marketplace add jralvarenga/skills`, then `/plugin install rstack@jralvarenga`. Skills are then available as `/rstack:<skill>`, for example `/rstack:code-review`.
+Or inside a session: `/plugin marketplace add jralvarenga/rstack`, then `/plugin install rstack@jralvarenga`. Skills are then available as `/rstack:<skill>`, for example `/rstack:code-review`.
 
 ### Grok Build
 
-Grok Build reads Claude Code marketplaces and plugins, so install rstack in Claude Code first and Grok picks it up. Otherwise add `jralvarenga/skills` as a marketplace from Grok's Marketplace tab.
+Grok Build reads Claude Code marketplaces and plugins, so install rstack in Claude Code first and Grok picks it up. Otherwise add `jralvarenga/rstack` as a marketplace from Grok's Marketplace tab.
 
 ### Codex and ChatGPT
 
 ```bash
-codex plugin marketplace add jralvarenga/skills
+codex plugin marketplace add jralvarenga/rstack
 codex plugin add rstack@jralvarenga
 ```
 
 ### Cursor
 
-Add `jralvarenga/skills` as a team marketplace, then open **Customize**, find **rstack** and select **Install**.
+Add `jralvarenga/rstack` as a team marketplace, then open **Customize**, find **rstack** and select **Install**.
 
 To test a local clone, copy it into Cursor's local plugins, then run **Developer: Reload Window**. Cursor skips symlinks that point outside `~/.cursor/plugins/local`, so copy instead of linking, and copy again after every change:
 
@@ -89,7 +89,7 @@ rsync -a --delete --exclude .git "$PWD"/ ~/.cursor/plugins/local/rstack/
 Install every skill globally without the plugin system:
 
 ```bash
-npx skills add jralvarenga/skills --skill '*' --global \
+npx skills add jralvarenga/rstack --skill '*' --global \
   --agent claude-code \
   --agent codex \
   --agent cursor \
@@ -99,7 +99,7 @@ npx skills add jralvarenga/skills --skill '*' --global \
 ### Local clone
 
 ```bash
-git clone https://github.com/jralvarenga/skills.git rstack
+git clone https://github.com/jralvarenga/rstack.git
 cd rstack
 ./scripts/link-skills.sh
 ```
@@ -196,7 +196,7 @@ bun run release
 
 1. Merge the packaging changes into `main` and complete the release steps above so the public repository has the version to submit.
 2. Test the released checkout using the local Cursor install instructions above. Reload Cursor, find **rstack** in **Customize**, and confirm its skills, the `rstack` subagent, and the always-on `agent-orchestration` rule load. Check the relative paths in both manifests and run `claude plugin validate .` for the Claude companion manifest.
-3. Sign in to Cursor and submit `https://github.com/jralvarenga/skills` at the [Cursor Marketplace publishing form](https://cursor.com/marketplace/publish). Cursor reviews the repository before listing it. [Cursor's submission checklist](https://cursor.com/docs/reference/plugins#submission-checklist)
+3. Sign in to Cursor and submit `https://github.com/jralvarenga/rstack` at the [Cursor Marketplace publishing form](https://cursor.com/marketplace/publish). Cursor reviews the repository before listing it. [Cursor's submission checklist](https://cursor.com/docs/reference/plugins#submission-checklist)
 4. After approval, confirm the listing in Cursor Marketplace and check availability in Grok Bot. In the official catalog, `pstack` lives in its own directory and has an entry in the top-level marketplace manifest with `name`, `source`, and `description`. If Cursor adds rstack to that catalog, the corresponding entry would use `rstack` as the name and point `source` to the directory Cursor assigns it. [pstack package](https://github.com/cursor/plugins/tree/main/pstack) · [Official catalog manifest](https://github.com/cursor/plugins/blob/main/.cursor-plugin/marketplace.json)
 
 The submission is the public repository URL. It contains the Cursor manifest and its local marketplace entry, the portable `plugin.json`, the Claude and Codex manifests, the bundled `skills/`, the `agents/` subagent and the `rules/` always-on rule for Cursor, the `hooks/` prompt hook for Claude Code, the PNG logo, the MIT `LICENSE`, and this README.

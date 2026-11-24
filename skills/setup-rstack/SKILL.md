@@ -7,7 +7,7 @@ These are my rules on how the agent sets up rstack in a project. The goal is tha
 
 ## Before writing
 
-1. When I ask to install rstack itself, point to the Install section of the [README](https://github.com/jralvarenga/skills#install). This skill configures a project, not an agent.
+1. When I ask to install rstack itself, point to the Install section of the [README](https://github.com/jralvarenga/rstack#install). This skill configures a project, not an agent.
 2. Find agent-orchestration next to this skill, at `../agent-orchestration/SKILL.md`, or load the installed `agent-orchestration` skill. When it isn't installed, tell me that setup-rstack needs it, and stop. Don't write a stub or a section without the routing.
 3. Read its "Routing table" section now, at setup time. Never write the routing from memory, from an earlier setup, or from this skill. When the section is missing or has no rows, say so and stop.
 4. Read the project's `AGENTS.md` and `CLAUDE.md`. Look outside the rstack section and in harness config like `.cursor/rules/` or `.claude/settings.json` for rules that choose a model, provider, or reasoning effort. Check what choice each rule governs.

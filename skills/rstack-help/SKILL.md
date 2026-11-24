@@ -11,7 +11,7 @@ rstack is my personal stack: a collection of agent skills with the rules I want 
 
 ## Getting started
 
-1. Install it. The Install section of the [README](https://github.com/jralvarenga/skills#install) has the command for each agent. In Claude Code the skills are then available as `/rstack:<skill>`.
+1. Install it. The Install section of the [README](https://github.com/jralvarenga/rstack#install) has the command for each agent. In Claude Code the skills are then available as `/rstack:<skill>`.
 2. Start every task from [rstack-mode](../rstack-mode/SKILL.md). It holds the core rules, picks the skills each task needs, and has playbooks for the workflows I repeat.
 3. Run [setup-rstack](../setup-rstack/SKILL.md) once in each project, and again after the routing table in [agent-orchestration](../agent-orchestration/SKILL.md) changes. It adds an rstack section to the project's `AGENTS.md` with the model routing for that project.
 4. Say "council" when you want a review from several models at once. The agent runs a council only when you ask, and never starts or offers one on its own.
