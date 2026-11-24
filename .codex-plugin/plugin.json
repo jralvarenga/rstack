@@ -1,5 +1,4 @@
 {
-  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "rstack",
   "version": "2.6.0",
   "description": "rstack is my personal stack: the rules I want every agent to follow when it writes, designs, reviews, and ships code with me. It includes an rstack-mode router with playbooks, code guidelines, frontend design, code review, app architecture, backend, agent files, issue management, agent orchestration, council, and rstack-help and setup-rstack for onboarding.",
@@ -9,6 +8,7 @@
   },
   "homepage": "https://github.com/jralvarenga/skills",
   "repository": "https://github.com/jralvarenga/skills",
+  "license": "MIT",
   "keywords": [
     "engineering",
     "skills",
@@ -31,6 +31,8 @@
   "interface": {
     "displayName": "rstack",
     "shortDescription": "Rigo's personal stack: an rstack-mode router with playbooks, code guidelines, frontend design, code review, app architecture, backend, agent files, issue management, agent orchestration, council, and rstack-help and setup-rstack for onboarding",
-    "category": "Coding"
+    "category": "Coding",
+    "logo": "./assets/logo.svg",
+    "composerIcon": "./assets/logo.svg"
   }
 }

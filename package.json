@@ -1,6 +1,7 @@
 {
   "name": "rstack",
   "version": "2.6.0",
+  "license": "MIT",
   "private": true,
   "type": "module",
   "packageManager": "bun@1.2.23",
