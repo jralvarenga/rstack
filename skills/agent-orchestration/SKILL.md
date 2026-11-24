@@ -9,7 +9,7 @@ These are my rules on how an orchestrating agent splits work between itself and 
 
 Load this skill at the start of every task I give you, before you plan or write anything, even when the task looks small:
 
-1. Classify the work by the task types in the routing table. A task can have several parts, for example planning, then implementation, then review.
+1. Classify the work by the task types in the routing table. A task can have several parts, for example planning, then implementation, then review. Split it only into substantial phases; a small step, like a small edit at the end of a plan, stays part of the phase around it.
 2. For each part, decide whether you do it yourself or delegate it, following "Do it or delegate it" below.
 3. For each delegated part, pick the model from the routing table and its fallback by availability, then brief the delegate.
 4. Say in one line how you split the work before you start, for example "Doing this myself" or "Planning here, implementation to a delegate".
@@ -30,7 +30,7 @@ This table is the single source of truth for which model handles which work. Oth
 | Quick low-effort tasks | Claude Sonnet 5.5 or Claude Haiku 5.5 | Anthropic | Grok 4.7 Fast (xAI) | Low or medium |
 | Council | Claude Opus 5.5, GPT-6.2 Sol, and Grok 4.7, one delegate each | Anthropic, OpenAI, and xAI | Gemini 4 Neon (Google) replaces one missing member | High |
 
-- Pick the row by the main kind of work in the task, not by the files it touches. A plan that ends in a small edit is planning, a refactor across many files is implementation.
+- Pick the row for each phase by its main kind of work, not by the files it touches. A plan that ends in a small edit is one planning phase; a refactor across many files is implementation.
 - Quick low-effort tasks are mechanical and well-specified, for example renaming, reformatting, collecting file lists, or summarizing a log. Use Haiku for the smallest ones and Sonnet when the task needs some judgment.
 - The fallback is a model from a different provider at the same tier as the primary, a strong model for the high-effort rows and a fast one for quick tasks, so an outage of one provider never blocks a row. It runs at the same reasoning effort as the primary.
 - The council row is the default panel for a multi-provider review: one strong model from each of three providers, so their blind spots don't overlap.
@@ -42,7 +42,7 @@ Do the work yourself when:
 
 - It is small, quick, and you already have the context, for example a one-file fix, answering a question about code you just read, or a follow-up to your own change.
 - Writing the brief would take about as long as doing the work.
-- The next step depends on the result right away and nothing else could run meanwhile.
+- It is a short step whose result you need right away. A substantial phase that belongs to another row is still delegated, even when it runs in sequence and nothing else can run meanwhile.
 - The task belongs to your own row in the routing table.
 
 Delegate when:
@@ -52,7 +52,7 @@ Delegate when:
 - It splits into independent pieces that can run at the same time.
 - I ask for a delegate, a second opinion, or a specific model.
 
-When both lists match, do it yourself, unless I asked for a delegate. A one-file mechanical fix you already have the context for stays with you even though it belongs to the quick-task row.
+When I ask for a delegate, a second opinion, or a specific model, that decides it: delegate, even when the work is small. If the model or settings I asked for aren't available, tell me which and wait. Otherwise, when both lists match, do it yourself. A one-file mechanical fix you already have the context for stays with you even though it belongs to the quick-task row.
 
 Never delegate the decision of what to build, or the final report you give me. You own the plan, you check the results, and you answer for them.
 
@@ -78,7 +78,7 @@ Keep the brief specific and short. Use my words for names and decisions, and nev
 ## Isolation
 
 - Every delegate that edits code works in its own worktree or branch, never in the checkout you or another delegate are using.
-- Name the branch after the issue it implements, and say in the brief which base it starts from.
+- Give every delegate its own branch. Name it after the issue it implements, and add a short suffix when several delegates work on the same issue, for example `46-routing-table` and `46-fallbacks`. Say in the brief which base it starts from.
 - Read-only delegates, like research, exploration, and review, can share the current checkout.
 - When the work is finished, the delegate pushes its branch and opens a PR if the brief allows it, or otherwise hands the branch back, so you merge the results deliberately instead of finding them mixed in your working tree.
 
