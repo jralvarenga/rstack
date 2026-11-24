@@ -8,6 +8,7 @@ It is written for the stack I use most: TypeScript, React, Next.js and TanStack 
 
 | Skill | What it does |
 | --- | --- |
+| `rstack-mode` | The entry point. Routes each task to the skills it needs and holds playbooks for my common workflows. |
 | `code-guidelines` | How the agent writes and formats code. |
 | `design` | How the agent designs the frontend. |
 | `frontend` | How the agent plans the frontend app, components, pages, and features. |
@@ -18,6 +19,10 @@ It is written for the stack I use most: TypeScript, React, Next.js and TanStack 
 | `issue-management` | Creates and manages issues in Linear, GitHub, or any other tracker. |
 | `agent-orchestration` | Loads at the start of every task: decides what to do yourself or delegate, picks the model and provider for each part, and briefs the delegates. See [Every task](#every-task). |
 | `council` | Runs review or feedback rounds on a PR, plan, or design with three models from three providers, until all of them are satisfied. |
+
+Start with `rstack-mode`. Its playbooks in `skills/rstack-mode/playbooks/` walk through filing an issue, implementing it, reviewing a PR, starting an app or feature, and running delegates in parallel.
+
+`agents/rstack.md` is a subagent that loads `rstack-mode` and `agent-orchestration` before it works, so delegates follow the same rules. Claude Code picks it up from `agents/`, and Cursor through `.cursor-plugin/plugin.json`.
 
 Every skill lives in `skills/`. Don't copy them by hand; install rstack with one of the options below.
 

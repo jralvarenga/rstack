@@ -1,0 +1,4 @@
+interface:
+  display_name: "rstack Mode"
+  short_description: "Route any task to the right rstack skills and playbooks"
+  default_prompt: "Use $rstack-mode to pick the rstack skills and playbook for this task and follow them according to my conventions."
